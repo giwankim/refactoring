@@ -7,6 +7,8 @@ fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
 ): String {
+    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
+
     var totalAmount = 0
     var volumeCredits = 0
     val result =
@@ -16,7 +18,7 @@ fun statement(
     val formatter = NumberFormat.getCurrencyInstance(Locale.US)
 
     for (perf in invoice.performances) {
-        val play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
+        val play = playFor(perf)
         var thisAmount = amountFor(play, perf)
 
         // add volume credits
