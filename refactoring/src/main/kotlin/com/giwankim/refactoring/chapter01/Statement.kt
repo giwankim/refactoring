@@ -17,26 +17,7 @@ fun statement(
 
     for (perf in invoice.performances) {
         val play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
-        var thisAmount = 0
-
-        when (play.type) {
-            "tragedy" -> {
-                thisAmount = 40_000
-                if (perf.audience > 30) {
-                    thisAmount += 1_000 * (perf.audience - 30)
-                }
-            }
-
-            "comedy" -> {
-                thisAmount = 30_000
-                if (perf.audience > 20) {
-                    thisAmount += 10_000 + 500 * (perf.audience - 20)
-                }
-                thisAmount += 300 * perf.audience
-            }
-
-            else -> throw IllegalArgumentException("unknown type: ${play.type}")
-        }
+        var thisAmount = amountFor(play, perf)
 
         // add volume credits
         volumeCredits += maxOf(perf.audience - 30, 0)
@@ -52,4 +33,31 @@ fun statement(
     result.appendLine("Amount owed is ${formatter.format(totalAmount / 100.0)}")
     result.appendLine("You earned $volumeCredits credits")
     return result.toString()
+}
+
+private fun amountFor(
+    play: Play,
+    perf: Performance,
+): Int {
+    var thisAmount: Int
+
+    when (play.type) {
+        "tragedy" -> {
+            thisAmount = 40_000
+            if (perf.audience > 30) {
+                thisAmount += 1_000 * (perf.audience - 30)
+            }
+        }
+
+        "comedy" -> {
+            thisAmount = 30_000
+            if (perf.audience > 20) {
+                thisAmount += 10_000 + 500 * (perf.audience - 20)
+            }
+            thisAmount += 300 * perf.audience
+        }
+
+        else -> throw IllegalArgumentException("unknown type: ${play.type}")
+    }
+    return thisAmount
 }
