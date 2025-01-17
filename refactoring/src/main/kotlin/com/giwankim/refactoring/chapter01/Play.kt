@@ -1,3 +1,9 @@
 package com.giwankim.refactoring.chapter01
 
-data class Play()
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Play(
+    val name: String,
+    val type: String,
+)
