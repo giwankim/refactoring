@@ -40,13 +40,18 @@ fun statement(
         }
     val formatter = NumberFormat.getCurrencyInstance(Locale.US)
 
-    for (perf in invoice.performances) {
-        // add volume credits
+    fun volumeCreditsFor(perf: Performance): Int {
+        var volumeCredits = 0
         volumeCredits += maxOf(perf.audience - 30, 0)
-        // add extra credit for every ten comedy attendees
         if ("comedy" == playFor(perf).type) {
             volumeCredits += perf.audience / 5
         }
+        return volumeCredits
+    }
+
+    for (perf in invoice.performances) {
+        // add volume credits
+        volumeCredits += volumeCreditsFor(perf)
 
         // print line for this order
         result.appendLine("  ${playFor(perf).name}: ${formatter.format(amountFor(perf) / 100.0)} (${perf.audience} seats)")
