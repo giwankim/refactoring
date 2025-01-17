@@ -9,6 +9,29 @@ fun statement(
 ): String {
     fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
 
+    fun amountFor(aPerformance: Performance): Int {
+        var result: Int
+        when (playFor(aPerformance).type) {
+            "tragedy" -> {
+                result = 40_000
+                if (aPerformance.audience > 30) {
+                    result += 1_000 * (aPerformance.audience - 30)
+                }
+            }
+
+            "comedy" -> {
+                result = 30_000
+                if (aPerformance.audience > 20) {
+                    result += 10_000 + 500 * (aPerformance.audience - 20)
+                }
+                result += 300 * aPerformance.audience
+            }
+
+            else -> throw IllegalArgumentException("unknown type: ${playFor(aPerformance).type}")
+        }
+        return result
+    }
+
     var totalAmount = 0
     var volumeCredits = 0
     val result =
@@ -18,7 +41,7 @@ fun statement(
     val formatter = NumberFormat.getCurrencyInstance(Locale.US)
 
     for (perf in invoice.performances) {
-        var thisAmount = amountFor(perf, playFor(perf))
+        var thisAmount = amountFor(perf)
 
         // add volume credits
         volumeCredits += maxOf(perf.audience - 30, 0)
@@ -34,31 +57,4 @@ fun statement(
     result.appendLine("Amount owed is ${formatter.format(totalAmount / 100.0)}")
     result.appendLine("You earned $volumeCredits credits")
     return result.toString()
-}
-
-private fun amountFor(
-    aPerformance: Performance,
-    play: Play,
-): Int {
-    var result: Int
-
-    when (play.type) {
-        "tragedy" -> {
-            result = 40_000
-            if (aPerformance.audience > 30) {
-                result += 1_000 * (aPerformance.audience - 30)
-            }
-        }
-
-        "comedy" -> {
-            result = 30_000
-            if (aPerformance.audience > 20) {
-                result += 10_000 + 500 * (aPerformance.audience - 20)
-            }
-            result += 300 * aPerformance.audience
-        }
-
-        else -> throw IllegalArgumentException("unknown type: ${play.type}")
-    }
-    return result
 }
