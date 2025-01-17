@@ -41,8 +41,6 @@ fun statement(
     val formatter = NumberFormat.getCurrencyInstance(Locale.US)
 
     for (perf in invoice.performances) {
-        var thisAmount = amountFor(perf)
-
         // add volume credits
         volumeCredits += maxOf(perf.audience - 30, 0)
         // add extra credit for every ten comedy attendees
@@ -51,8 +49,8 @@ fun statement(
         }
 
         // print line for this order
-        result.appendLine("  ${playFor(perf).name}: ${formatter.format(thisAmount / 100.0)} (${perf.audience} seats)")
-        totalAmount += thisAmount
+        result.appendLine("  ${playFor(perf).name}: ${formatter.format(amountFor(perf) / 100.0)} (${perf.audience} seats)")
+        totalAmount += amountFor(perf)
     }
     result.appendLine("Amount owed is ${formatter.format(totalAmount / 100.0)}")
     result.appendLine("You earned $volumeCredits credits")
