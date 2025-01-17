@@ -32,6 +32,15 @@ fun statement(
         return result
     }
 
+    fun volumeCreditsFor(aPerformance: Performance): Int {
+        var volumeCredits = 0
+        volumeCredits += maxOf(aPerformance.audience - 30, 0)
+        if ("comedy" == playFor(aPerformance).type) {
+            volumeCredits += aPerformance.audience / 5
+        }
+        return volumeCredits
+    }
+
     var totalAmount = 0
     var volumeCredits = 0
     val result =
@@ -39,15 +48,6 @@ fun statement(
             appendLine("Statement for ${invoice.customer}")
         }
     val formatter = NumberFormat.getCurrencyInstance(Locale.US)
-
-    fun volumeCreditsFor(perf: Performance): Int {
-        var volumeCredits = 0
-        volumeCredits += maxOf(perf.audience - 30, 0)
-        if ("comedy" == playFor(perf).type) {
-            volumeCredits += perf.audience / 5
-        }
-        return volumeCredits
-    }
 
     for (perf in invoice.performances) {
         // add volume credits
