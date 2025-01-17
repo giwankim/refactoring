@@ -37,24 +37,24 @@ fun statement(
 
 private fun amountFor(
     play: Play,
-    perf: Performance,
+    aPerformance: Performance,
 ): Int {
     var result: Int
 
     when (play.type) {
         "tragedy" -> {
             result = 40_000
-            if (perf.audience > 30) {
-                result += 1_000 * (perf.audience - 30)
+            if (aPerformance.audience > 30) {
+                result += 1_000 * (aPerformance.audience - 30)
             }
         }
 
         "comedy" -> {
             result = 30_000
-            if (perf.audience > 20) {
-                result += 10_000 + 500 * (perf.audience - 20)
+            if (aPerformance.audience > 20) {
+                result += 10_000 + 500 * (aPerformance.audience - 20)
             }
-            result += 300 * perf.audience
+            result += 300 * aPerformance.audience
         }
 
         else -> throw IllegalArgumentException("unknown type: ${play.type}")
