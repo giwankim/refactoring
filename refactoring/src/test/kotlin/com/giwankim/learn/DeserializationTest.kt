@@ -7,7 +7,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json
 
-class SerializationTest :
+class DeserializationTest :
     FunSpec({
         context("Deserialization") {
             test("plays") {
