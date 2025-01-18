@@ -6,6 +6,11 @@ import java.util.Locale
 fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
+): String = renderPlainText(invoice, plays)
+
+fun renderPlainText(
+    invoice: Invoice,
+    plays: Map<String, Play>,
 ): String {
     fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
 
@@ -63,7 +68,6 @@ fun statement(
     for (perf in invoice.performances) {
         result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
     }
-
     result.appendLine("Amount owed is ${usd(totalAmount())}")
     result.appendLine("You earned ${totalVolumeCredits()} credits")
     return result.toString()
