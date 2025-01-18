@@ -6,7 +6,7 @@ import java.util.Locale
 fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
-): String = renderPlainText(createStatementData(invoice, plays), plays)
+): String = renderPlainText(createStatementData(invoice, plays))
 
 private fun createStatementData(
     invoice: Invoice,
@@ -64,10 +64,7 @@ private fun createStatementData(
     return statementData
 }
 
-fun renderPlainText(
-    data: StatementData,
-    plays: Map<String, Play>,
-): String {
+fun renderPlainText(data: StatementData): String {
     fun usd(aNumber: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber / 100.0)
 
     return buildString {
