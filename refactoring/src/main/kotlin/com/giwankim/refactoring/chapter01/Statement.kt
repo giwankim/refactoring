@@ -6,9 +6,12 @@ import java.util.Locale
 fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
-): String {
-    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
+): String = renderPlainText(createStatementData(invoice, plays), plays)
 
+private fun createStatementData(
+    invoice: Invoice,
+    plays: Map<String, Play>,
+): StatementData {
     fun amountFor(aPerformance: EnrichedPerformance): Int {
         var result: Int
         when (aPerformance.play.type) {
@@ -41,9 +44,7 @@ fun statement(
         return result
     }
 
-    fun totalVolumeCredits(data: StatementData): Int = data.performances.sumOf { it.volumeCredits }
-
-    fun totalAmount(data: StatementData): Int = data.performances.sumOf { it.amount }
+    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
 
     fun enrichPerformance(aPerformance: Performance): EnrichedPerformance =
         EnrichedPerformance(aPerformance.playID, aPerformance.audience, playFor(aPerformance)).apply {
@@ -51,12 +52,16 @@ fun statement(
             volumeCredits = volumeCreditsFor(this)
         }
 
+    fun totalVolumeCredits(data: StatementData): Int = data.performances.sumOf { it.volumeCredits }
+
+    fun totalAmount(data: StatementData): Int = data.performances.sumOf { it.amount }
+
     val statementData =
         StatementData(invoice.customer, invoice.performances.map(::enrichPerformance)).apply {
             totalAmount = totalAmount(this)
             totalVolumeCredits = totalVolumeCredits(this)
         }
-    return renderPlainText(statementData, plays)
+    return statementData
 }
 
 fun renderPlainText(
