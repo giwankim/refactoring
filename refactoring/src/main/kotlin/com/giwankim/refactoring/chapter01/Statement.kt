@@ -58,8 +58,7 @@ fun statement(
         result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
         totalAmount += amountFor(perf)
     }
-    var volumeCredits = totalVolumeCredits()
     result.appendLine("Amount owed is ${usd(totalAmount)}")
-    result.appendLine("You earned $volumeCredits credits")
+    result.appendLine("You earned ${totalVolumeCredits()} credits")
     return result.toString()
 }
