@@ -6,9 +6,13 @@ import java.util.Locale
 fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
-): String = renderPlainText(invoice, plays)
+): String {
+    val statementData = StatementData(invoice.customer)
+    return renderPlainText(statementData, invoice, plays)
+}
 
 fun renderPlainText(
+    data: StatementData,
     invoice: Invoice,
     plays: Map<String, Play>,
 ): String {
@@ -64,7 +68,7 @@ fun renderPlainText(
         return result
     }
 
-    val result = StringBuilder().apply { appendLine("Statement for ${invoice.customer}") }
+    val result = StringBuilder().apply { appendLine("Statement for ${data.customer}") }
     for (perf in invoice.performances) {
         result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
     }
@@ -72,3 +76,7 @@ fun renderPlainText(
     result.appendLine("You earned ${totalVolumeCredits()} credits")
     return result.toString()
 }
+
+data class StatementData(
+    val customer: String,
+)
