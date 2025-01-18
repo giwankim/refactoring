@@ -44,19 +44,19 @@ fun statement(
     fun usd(aNumber: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber / 100.0)
 
     fun totalVolumeCredits(): Int {
-        var volumeCredits = 0
+        var result = 0
         for (perf in invoice.performances) {
-            volumeCredits += volumeCreditsFor(perf)
+            result += volumeCreditsFor(perf)
         }
-        return volumeCredits
+        return result
     }
 
     fun totalAmount(): Int {
-        var totalAmount = 0
+        var result = 0
         for (perf in invoice.performances) {
-            totalAmount += amountFor(perf)
+            result += amountFor(perf)
         }
-        return totalAmount
+        return result
     }
 
     val result = StringBuilder().apply { appendLine("Statement for ${invoice.customer}") }
