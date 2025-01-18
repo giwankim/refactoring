@@ -43,6 +43,14 @@ fun statement(
 
     fun usd(aNumber: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber / 100.0)
 
+    fun totalVolumeCredits(): Int {
+        var volumeCredits = 0
+        for (perf in invoice.performances) {
+            volumeCredits += volumeCreditsFor(perf)
+        }
+        return volumeCredits
+    }
+
     var totalAmount = 0
     val result = StringBuilder().apply { appendLine("Statement for ${invoice.customer}") }
     for (perf in invoice.performances) {
@@ -50,10 +58,7 @@ fun statement(
         result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
         totalAmount += amountFor(perf)
     }
-    var volumeCredits = 0
-    for (perf in invoice.performances) {
-        volumeCredits += volumeCreditsFor(perf)
-    }
+    var volumeCredits = totalVolumeCredits()
     result.appendLine("Amount owed is ${usd(totalAmount)}")
     result.appendLine("You earned $volumeCredits credits")
     return result.toString()
