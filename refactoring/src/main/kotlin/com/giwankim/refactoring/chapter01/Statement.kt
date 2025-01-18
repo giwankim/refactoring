@@ -41,21 +41,9 @@ fun statement(
         return result
     }
 
-    fun totalVolumeCredits(data: StatementData): Int {
-        var result = 0
-        for (perf in data.performances) {
-            result += perf.volumeCredits
-        }
-        return result
-    }
+    fun totalVolumeCredits(data: StatementData): Int = data.performances.sumOf { it.volumeCredits }
 
-    fun totalAmount(data: StatementData): Int {
-        var result = 0
-        for (perf in data.performances) {
-            result += perf.amount
-        }
-        return result
-    }
+    fun totalAmount(data: StatementData): Int = data.performances.sumOf { it.amount }
 
     fun enrichPerformance(aPerformance: Performance): EnrichedPerformance =
         EnrichedPerformance(aPerformance.playID, aPerformance.audience, playFor(aPerformance)).apply {
