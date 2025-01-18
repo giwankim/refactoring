@@ -70,13 +70,14 @@ fun renderPlainText(
         return result
     }
 
-    val result = StringBuilder().apply { appendLine("Statement for ${data.customer}") }
-    for (perf in data.performances) {
-        result.appendLine("  ${perf.play.name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
+    return buildString {
+        appendLine("Statement for ${data.customer}")
+        data.performances.forEach { perf ->
+            appendLine("  ${perf.play.name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
+        }
+        appendLine("Amount owed is ${usd(totalAmount())}")
+        appendLine("You earned ${totalVolumeCredits()} credits")
     }
-    result.appendLine("Amount owed is ${usd(totalAmount())}")
-    result.appendLine("You earned ${totalVolumeCredits()} credits")
-    return result.toString()
 }
 
 data class StatementData(
