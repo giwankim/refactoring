@@ -51,14 +51,20 @@ fun statement(
         return volumeCredits
     }
 
+    fun getTotalAmount(): Int {
+        var totalAmount = 0
+        for (perf in invoice.performances) {
+            totalAmount += amountFor(perf)
+        }
+        return totalAmount
+    }
+
     val result = StringBuilder().apply { appendLine("Statement for ${invoice.customer}") }
     for (perf in invoice.performances) {
         result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
     }
-    var totalAmount = 0
-    for (perf in invoice.performances) {
-        totalAmount += amountFor(perf)
-    }
+    var totalAmount = getTotalAmount()
+
     result.appendLine("Amount owed is ${usd(totalAmount)}")
     result.appendLine("You earned ${totalVolumeCredits()} credits")
     return result.toString()
