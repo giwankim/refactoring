@@ -33,12 +33,12 @@ fun statement(
     }
 
     fun volumeCreditsFor(aPerformance: Performance): Int {
-        var volumeCredits = 0
-        volumeCredits += maxOf(aPerformance.audience - 30, 0)
+        var result = 0
+        result += maxOf(aPerformance.audience - 30, 0)
         if ("comedy" == playFor(aPerformance).type) {
-            volumeCredits += aPerformance.audience / 5
+            result += aPerformance.audience / 5
         }
-        return volumeCredits
+        return result
     }
 
     fun format(aNumber: Double): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber)
