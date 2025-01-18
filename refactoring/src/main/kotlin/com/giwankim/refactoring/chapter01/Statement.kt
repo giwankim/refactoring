@@ -41,23 +41,19 @@ fun statement(
         return volumeCredits
     }
 
+    fun format(aNumber: Double): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber)
+
     var totalAmount = 0
     var volumeCredits = 0
-    val result =
-        StringBuilder().apply {
-            appendLine("Statement for ${invoice.customer}")
-        }
-    val formatter = NumberFormat.getCurrencyInstance(Locale.US)
-
+    val result = StringBuilder().apply { appendLine("Statement for ${invoice.customer}") }
     for (perf in invoice.performances) {
-        // add volume credits
         volumeCredits += volumeCreditsFor(perf)
 
         // print line for this order
-        result.appendLine("  ${playFor(perf).name}: ${formatter.format(amountFor(perf) / 100.0)} (${perf.audience} seats)")
+        result.appendLine("  ${playFor(perf).name}: ${format(amountFor(perf) / 100.0)} (${perf.audience} seats)")
         totalAmount += amountFor(perf)
     }
-    result.appendLine("Amount owed is ${formatter.format(totalAmount / 100.0)}")
+    result.appendLine("Amount owed is ${format(totalAmount / 100.0)}")
     result.appendLine("You earned $volumeCredits credits")
     return result.toString()
 }
