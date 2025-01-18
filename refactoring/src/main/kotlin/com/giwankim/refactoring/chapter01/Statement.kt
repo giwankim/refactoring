@@ -9,17 +9,6 @@ fun statement(
 ): String {
     fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
 
-    fun enrichPerformance(aPerformance: Performance): EnrichedPerformance =
-        EnrichedPerformance(aPerformance.playID, aPerformance.audience, playFor(aPerformance))
-
-    val statementData = StatementData(invoice.customer, invoice.performances.map(::enrichPerformance))
-    return renderPlainText(statementData, plays)
-}
-
-fun renderPlainText(
-    data: StatementData,
-    plays: Map<String, Play>,
-): String {
     fun amountFor(aPerformance: EnrichedPerformance): Int {
         var result: Int
         when (aPerformance.play.type) {
@@ -43,6 +32,19 @@ fun renderPlainText(
         return result
     }
 
+    fun enrichPerformance(aPerformance: Performance): EnrichedPerformance =
+        EnrichedPerformance(aPerformance.playID, aPerformance.audience, playFor(aPerformance)).apply {
+            amount = amountFor(this)
+        }
+
+    val statementData = StatementData(invoice.customer, invoice.performances.map(::enrichPerformance))
+    return renderPlainText(statementData, plays)
+}
+
+fun renderPlainText(
+    data: StatementData,
+    plays: Map<String, Play>,
+): String {
     fun volumeCreditsFor(aPerformance: EnrichedPerformance): Int {
         var result = 0
         result += maxOf(aPerformance.audience - 30, 0)
@@ -65,7 +67,7 @@ fun renderPlainText(
     fun totalAmount(): Int {
         var result = 0
         for (perf in data.performances) {
-            result += amountFor(perf)
+            result += perf.amount
         }
         return result
     }
@@ -73,7 +75,7 @@ fun renderPlainText(
     return buildString {
         appendLine("Statement for ${data.customer}")
         data.performances.forEach { perf ->
-            appendLine("  ${perf.play.name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
+            appendLine("  ${perf.play.name}: ${usd(perf.amount)} (${perf.audience} seats)")
         }
         appendLine("Amount owed is ${usd(totalAmount())}")
         appendLine("You earned ${totalVolumeCredits()} credits")
@@ -89,4 +91,5 @@ data class EnrichedPerformance(
     val playID: String,
     val audience: Int,
     val play: Play,
+    var amount: Int = 0,
 )
