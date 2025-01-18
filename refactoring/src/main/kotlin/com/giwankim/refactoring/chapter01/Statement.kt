@@ -7,13 +7,12 @@ fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
 ): String {
-    val statementData = StatementData(invoice.customer)
-    return renderPlainText(statementData, invoice, plays)
+    val statementData = StatementData(invoice.customer, invoice.performances)
+    return renderPlainText(statementData, plays)
 }
 
 fun renderPlainText(
     data: StatementData,
-    invoice: Invoice,
     plays: Map<String, Play>,
 ): String {
     fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
@@ -54,7 +53,7 @@ fun renderPlainText(
 
     fun totalVolumeCredits(): Int {
         var result = 0
-        for (perf in invoice.performances) {
+        for (perf in data.performances) {
             result += volumeCreditsFor(perf)
         }
         return result
@@ -62,14 +61,14 @@ fun renderPlainText(
 
     fun totalAmount(): Int {
         var result = 0
-        for (perf in invoice.performances) {
+        for (perf in data.performances) {
             result += amountFor(perf)
         }
         return result
     }
 
     val result = StringBuilder().apply { appendLine("Statement for ${data.customer}") }
-    for (perf in invoice.performances) {
+    for (perf in data.performances) {
         result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
     }
     result.appendLine("Amount owed is ${usd(totalAmount())}")
@@ -79,4 +78,5 @@ fun renderPlainText(
 
 data class StatementData(
     val customer: String,
+    val performances: List<Performance>,
 )
