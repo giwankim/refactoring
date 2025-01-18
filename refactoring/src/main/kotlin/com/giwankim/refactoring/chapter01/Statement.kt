@@ -41,7 +41,7 @@ fun statement(
         return result
     }
 
-    fun format(aNumber: Double): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber)
+    fun usd(aNumber: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber / 100.0)
 
     var totalAmount = 0
     var volumeCredits = 0
@@ -50,10 +50,10 @@ fun statement(
         volumeCredits += volumeCreditsFor(perf)
 
         // print line for this order
-        result.appendLine("  ${playFor(perf).name}: ${format(amountFor(perf) / 100.0)} (${perf.audience} seats)")
+        result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
         totalAmount += amountFor(perf)
     }
-    result.appendLine("Amount owed is ${format(totalAmount / 100.0)}")
+    result.appendLine("Amount owed is ${usd(totalAmount)}")
     result.appendLine("You earned $volumeCredits credits")
     return result.toString()
 }
