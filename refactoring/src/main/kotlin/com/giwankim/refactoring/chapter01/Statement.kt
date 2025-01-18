@@ -41,13 +41,33 @@ fun statement(
         return result
     }
 
+    fun totalVolumeCredits(data: StatementData): Int {
+        var result = 0
+        for (perf in data.performances) {
+            result += perf.volumeCredits
+        }
+        return result
+    }
+
+    fun totalAmount(data: StatementData): Int {
+        var result = 0
+        for (perf in data.performances) {
+            result += perf.amount
+        }
+        return result
+    }
+
     fun enrichPerformance(aPerformance: Performance): EnrichedPerformance =
         EnrichedPerformance(aPerformance.playID, aPerformance.audience, playFor(aPerformance)).apply {
             amount = amountFor(this)
             volumeCredits = volumeCreditsFor(this)
         }
 
-    val statementData = StatementData(invoice.customer, invoice.performances.map(::enrichPerformance))
+    val statementData =
+        StatementData(invoice.customer, invoice.performances.map(::enrichPerformance)).apply {
+            totalAmount = totalAmount(this)
+            totalVolumeCredits = totalVolumeCredits(this)
+        }
     return renderPlainText(statementData, plays)
 }
 
@@ -57,35 +77,21 @@ fun renderPlainText(
 ): String {
     fun usd(aNumber: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber / 100.0)
 
-    fun totalVolumeCredits(): Int {
-        var result = 0
-        for (perf in data.performances) {
-            result += perf.volumeCredits
-        }
-        return result
-    }
-
-    fun totalAmount(): Int {
-        var result = 0
-        for (perf in data.performances) {
-            result += perf.amount
-        }
-        return result
-    }
-
     return buildString {
         appendLine("Statement for ${data.customer}")
         data.performances.forEach { perf ->
             appendLine("  ${perf.play.name}: ${usd(perf.amount)} (${perf.audience} seats)")
         }
-        appendLine("Amount owed is ${usd(totalAmount())}")
-        appendLine("You earned ${totalVolumeCredits()} credits")
+        appendLine("Amount owed is ${usd(data.totalAmount)}")
+        appendLine("You earned ${data.totalVolumeCredits} credits")
     }
 }
 
 data class StatementData(
     val customer: String,
     val performances: List<EnrichedPerformance>,
+    var totalAmount: Int = 0,
+    var totalVolumeCredits: Int = 0,
 )
 
 data class EnrichedPerformance(
