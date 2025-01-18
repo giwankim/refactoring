@@ -7,10 +7,10 @@ fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
 ): String {
-    fun enrichPerformance(aPerformance: Performance): Performance {
-        val result = aPerformance.copy()
-        return result
-    }
+    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
+
+    fun enrichPerformance(aPerformance: Performance): EnrichedPerformance =
+        EnrichedPerformance(aPerformance.playID, aPerformance.audience, playFor(aPerformance))
 
     val statementData = StatementData(invoice.customer, invoice.performances.map(::enrichPerformance))
     return renderPlainText(statementData, plays)
@@ -20,11 +20,9 @@ fun renderPlainText(
     data: StatementData,
     plays: Map<String, Play>,
 ): String {
-    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
-
-    fun amountFor(aPerformance: Performance): Int {
+    fun amountFor(aPerformance: EnrichedPerformance): Int {
         var result: Int
-        when (playFor(aPerformance).type) {
+        when (aPerformance.play.type) {
             "tragedy" -> {
                 result = 40_000
                 if (aPerformance.audience > 30) {
@@ -40,15 +38,15 @@ fun renderPlainText(
                 result += 300 * aPerformance.audience
             }
 
-            else -> throw IllegalArgumentException("unknown type: ${playFor(aPerformance).type}")
+            else -> throw IllegalArgumentException("unknown type: ${aPerformance.play.type}")
         }
         return result
     }
 
-    fun volumeCreditsFor(aPerformance: Performance): Int {
+    fun volumeCreditsFor(aPerformance: EnrichedPerformance): Int {
         var result = 0
         result += maxOf(aPerformance.audience - 30, 0)
-        if ("comedy" == playFor(aPerformance).type) {
+        if ("comedy" == aPerformance.play.type) {
             result += aPerformance.audience / 5
         }
         return result
@@ -74,7 +72,7 @@ fun renderPlainText(
 
     val result = StringBuilder().apply { appendLine("Statement for ${data.customer}") }
     for (perf in data.performances) {
-        result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
+        result.appendLine("  ${perf.play.name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
     }
     result.appendLine("Amount owed is ${usd(totalAmount())}")
     result.appendLine("You earned ${totalVolumeCredits()} credits")
@@ -83,5 +81,11 @@ fun renderPlainText(
 
 data class StatementData(
     val customer: String,
-    val performances: List<Performance>,
+    val performances: List<EnrichedPerformance>,
+)
+
+data class EnrichedPerformance(
+    val playID: String,
+    val audience: Int,
+    val play: Play,
 )
