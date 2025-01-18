@@ -63,9 +63,8 @@ fun statement(
     for (perf in invoice.performances) {
         result.appendLine("  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)")
     }
-    var totalAmount = getTotalAmount()
 
-    result.appendLine("Amount owed is ${usd(totalAmount)}")
+    result.appendLine("Amount owed is ${usd(getTotalAmount())}")
     result.appendLine("You earned ${totalVolumeCredits()} credits")
     return result.toString()
 }
