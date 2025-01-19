@@ -7,35 +7,35 @@ import java.util.Locale
 fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
-): String = renderPlainText(createStatementData(invoice, plays))
+): String = createStatementData(invoice, plays).renderPlainText()
 
-fun renderPlainText(data: StatementData): String =
+fun StatementData.renderPlainText(): String =
     buildString {
-        appendLine("Statement for ${data.customer}")
-        data.performances.forEach { perf ->
+        appendLine("Statement for $customer")
+        performances.forEach { perf ->
             appendLine("  ${perf.play.name}: ${usd(perf.amount)} (${perf.audience} seats)")
         }
-        appendLine("Amount owed is ${usd(data.totalAmount)}")
-        appendLine("You earned ${data.totalVolumeCredits} credits")
+        appendLine("Amount owed is ${usd(totalAmount)}")
+        appendLine("You earned $totalVolumeCredits credits")
     }
 
 fun htmlStatement(
     invoice: Invoice,
     plays: Map<String, Play>,
-): String = renderHtml(createStatementData(invoice, plays))
+): String = createStatementData(invoice, plays).renderHtml()
 
-fun renderHtml(data: StatementData): String =
+fun StatementData.renderHtml(): String =
     buildString {
-        appendLine("<h1>Statement for ${data.customer}</h1>")
+        appendLine("<h1>Statement for $customer</h1>")
         appendLine("<table>")
         appendLine("<tr><th>play</th><th>seats</th><th>cost</th></tr>")
-        data.performances.forEach { perf ->
+        performances.forEach { perf ->
             append("  <tr><td>${perf.play.name}</td><td>${perf.audience}</td>")
             appendLine("<td>${usd(perf.amount)}</td></tr>")
         }
         appendLine("</table>")
-        appendLine("<p>Amount owed is <em>${usd(data.totalAmount)}</em></p>")
-        appendLine("<p>You earned <em>${data.totalVolumeCredits}</em> credits</p>")
+        appendLine("<p>Amount owed is <em>${usd(totalAmount)}</em></p>")
+        appendLine("<p>You earned <em>$totalVolumeCredits</em> credits</p>")
     }
 
 fun usd(number: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(number / 100.0)
