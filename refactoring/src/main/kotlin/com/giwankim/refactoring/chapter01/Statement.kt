@@ -13,9 +13,9 @@ fun StatementData.renderPlainText(): String =
     buildString {
         appendLine("Statement for $customer")
         performances.forEach { perf ->
-            appendLine("  ${perf.play.name}: ${usd(perf.amount)} (${perf.audience} seats)")
+            appendLine("  ${perf.play.name}: ${perf.amount.usd()} (${perf.audience} seats)")
         }
-        appendLine("Amount owed is ${usd(totalAmount)}")
+        appendLine("Amount owed is ${totalAmount.usd()}")
         appendLine("You earned $totalVolumeCredits credits")
     }
 
@@ -31,14 +31,14 @@ fun StatementData.renderHtml(): String =
         appendLine("<tr><th>play</th><th>seats</th><th>cost</th></tr>")
         performances.forEach { perf ->
             append("  <tr><td>${perf.play.name}</td><td>${perf.audience}</td>")
-            appendLine("<td>${usd(perf.amount)}</td></tr>")
+            appendLine("<td>${perf.amount.usd()}</td></tr>")
         }
         appendLine("</table>")
-        appendLine("<p>Amount owed is <em>${usd(totalAmount)}</em></p>")
+        appendLine("<p>Amount owed is <em>${totalAmount.usd()}</em></p>")
         appendLine("<p>You earned <em>$totalVolumeCredits</em> credits</p>")
     }
 
-fun usd(number: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(number / 100.0)
+fun Int.usd(): String = NumberFormat.getCurrencyInstance(Locale.US).format(this / 100.0)
 
 @Serializable
 data class Play(
