@@ -1,10 +1,5 @@
 package com.giwankim.refactoring.chapter01
 
-fun createStatementData(
-    invoice: Invoice,
-    plays: Map<String, Play>,
-): StatementData = StatementData(invoice.customer, invoice.performances.map { EnrichedPerformance.create(it, plays) })
-
 data class StatementData(
     val customer: String,
     val performances: List<EnrichedPerformance>,
@@ -13,6 +8,13 @@ data class StatementData(
         get() = performances.sumOf { it.amount }
     val totalVolumeCredits: Int
         get() = performances.sumOf { it.volumeCredits }
+
+    companion object {
+        fun create(
+            invoice: Invoice,
+            plays: Map<String, Play>,
+        ): StatementData = StatementData(invoice.customer, invoice.performances.map { EnrichedPerformance.create(it, plays) })
+    }
 }
 
 data class EnrichedPerformance(

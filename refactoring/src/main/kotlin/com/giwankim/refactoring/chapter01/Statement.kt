@@ -7,7 +7,10 @@ import java.util.Locale
 fun statement(
     invoice: Invoice,
     plays: Map<String, Play>,
-): String = createStatementData(invoice, plays).renderPlainText()
+): String =
+    StatementData
+        .create(invoice, plays)
+        .renderPlainText()
 
 fun StatementData.renderPlainText(): String =
     buildString {
@@ -22,7 +25,10 @@ fun StatementData.renderPlainText(): String =
 fun htmlStatement(
     invoice: Invoice,
     plays: Map<String, Play>,
-): String = createStatementData(invoice, plays).renderHtml()
+): String =
+    StatementData
+        .create(invoice, plays)
+        .renderHtml()
 
 fun StatementData.renderHtml(): String =
     buildString {
