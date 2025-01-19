@@ -59,7 +59,31 @@ fun createStatementData(
 class PerformanceCalculator(
     val performance: Performance,
     val play: Play,
-)
+) {
+    val amount: Int
+        get() {
+            var result: Int
+            when (play.type) {
+                "tragedy" -> {
+                    result = 40_000
+                    if (performance.audience > 30) {
+                        result += 1_000 * (performance.audience - 30)
+                    }
+                }
+
+                "comedy" -> {
+                    result = 30_000
+                    if (performance.audience > 20) {
+                        result += 10_000 + 500 * (performance.audience - 20)
+                    }
+                    result += 300 * performance.audience
+                }
+
+                else -> throw IllegalArgumentException("unknown type: ${play.type}")
+            }
+            return result
+        }
+}
 
 data class StatementData(
     val customer: String,
