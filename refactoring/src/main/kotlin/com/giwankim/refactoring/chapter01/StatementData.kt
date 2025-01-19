@@ -27,9 +27,14 @@ fun createStatementData(
 fun createPerformanceCalculator(
     performance: Performance,
     play: Play,
-): PerformanceCalculator = PerformanceCalculator(performance, play)
+): PerformanceCalculator =
+    when (play.type) {
+        "tragedy" -> TragedyCalculator(performance, play)
+        "comedy" -> ComedyCalculator(performance, play)
+        else -> throw IllegalArgumentException("unknown type: ${play.type}")
+    }
 
-class PerformanceCalculator(
+open class PerformanceCalculator(
     val performance: Performance,
     val play: Play,
 ) {
@@ -67,6 +72,16 @@ class PerformanceCalculator(
             return result
         }
 }
+
+class TragedyCalculator(
+    performance: Performance,
+    play: Play,
+) : PerformanceCalculator(performance, play)
+
+class ComedyCalculator(
+    performance: Performance,
+    play: Play,
+) : PerformanceCalculator(performance, play)
 
 data class StatementData(
     val customer: String,
