@@ -40,7 +40,7 @@ fun createStatementData(
 
     fun enrichPerformance(aPerformance: Performance): EnrichedPerformance {
         val calculator = PerformanceCalculator(aPerformance, playFor(aPerformance))
-        return EnrichedPerformance(aPerformance.playID, aPerformance.audience, calculator.aPlay).apply {
+        return EnrichedPerformance(aPerformance.playID, aPerformance.audience, calculator.play).apply {
             amount = amountFor(this)
             volumeCredits = volumeCreditsFor(this)
         }
@@ -57,8 +57,8 @@ fun createStatementData(
 }
 
 class PerformanceCalculator(
-    val aPerformance: Performance,
-    val aPlay: Play,
+    val performance: Performance,
+    val play: Play,
 )
 
 data class StatementData(
