@@ -40,21 +40,7 @@ open class PerformanceCalculator(
 ) {
     open val amount: Int
         get() {
-            var result: Int
-            when (play.type) {
-                "tragedy" -> error("Not expected to reach here")
-
-                "comedy" -> {
-                    result = 30_000
-                    if (performance.audience > 20) {
-                        result += 10_000 + 500 * (performance.audience - 20)
-                    }
-                    result += 300 * performance.audience
-                }
-
-                else -> throw IllegalArgumentException("unknown type: ${play.type}")
-            }
-            return result
+            throw NotImplementedError("subclass responsibility")
         }
 
     val volumeCredits: Int
@@ -85,7 +71,17 @@ class TragedyCalculator(
 class ComedyCalculator(
     performance: Performance,
     play: Play,
-) : PerformanceCalculator(performance, play)
+) : PerformanceCalculator(performance, play) {
+    override val amount: Int
+        get() {
+            var result = 30_000
+            if (performance.audience > 20) {
+                result += 10_000 + 500 * (performance.audience - 20)
+            }
+            result += 300 * performance.audience
+            return result
+        }
+}
 
 data class StatementData(
     val customer: String,
