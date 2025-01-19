@@ -3,23 +3,7 @@ package com.giwankim.refactoring.chapter01
 fun createStatementData(
     invoice: Invoice,
     plays: Map<String, Play>,
-): StatementData {
-    fun playFor(performance: Performance): Play =
-        plays[performance.playID] ?: throw IllegalArgumentException("unknown playID: ${performance.playID}")
-
-    fun enrichPerformance(performance: Performance): EnrichedPerformance {
-        val calculator = createPerformanceCalculator(performance, playFor(performance))
-        return EnrichedPerformance(
-            performance.playID,
-            performance.audience,
-            calculator.play,
-            calculator.amount,
-            calculator.volumeCredits,
-        )
-    }
-
-    return StatementData(invoice.customer, invoice.performances.map(::enrichPerformance))
-}
+): StatementData = StatementData(invoice.customer, invoice.performances.map { EnrichedPerformance.create(it, plays) })
 
 data class StatementData(
     val customer: String,
@@ -37,7 +21,25 @@ data class EnrichedPerformance(
     val play: Play,
     var amount: Int,
     var volumeCredits: Int,
-)
+) {
+    companion object {
+        fun create(
+            performance: Performance,
+            plays: Map<String, Play>,
+        ): EnrichedPerformance {
+            val play =
+                plays[performance.playID] ?: throw IllegalArgumentException("unknown playID: ${performance.playID}")
+            val calculator = createPerformanceCalculator(performance, play)
+            return EnrichedPerformance(
+                performance.playID,
+                performance.audience,
+                calculator.play,
+                calculator.amount,
+                calculator.volumeCredits,
+            )
+        }
+    }
+}
 
 fun createPerformanceCalculator(
     performance: Performance,
