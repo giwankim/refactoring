@@ -53,10 +53,7 @@ sealed class PerformanceCalculator(
     val performance: Performance,
     val play: Play,
 ) {
-    open val amount: Int
-        get() {
-            throw NotImplementedError("subclass responsibility")
-        }
+    abstract val amount: Int
 
     open val volumeCredits: Int
         get() = maxOf(performance.audience - 30, 0)
