@@ -43,15 +43,8 @@ open class PerformanceCalculator(
             throw NotImplementedError("subclass responsibility")
         }
 
-    val volumeCredits: Int
-        get() {
-            var result = 0
-            result += maxOf(performance.audience - 30, 0)
-            if ("comedy" == play.type) {
-                result += performance.audience / 5
-            }
-            return result
-        }
+    open val volumeCredits: Int
+        get() = maxOf(performance.audience - 30, 0)
 }
 
 class TragedyCalculator(
@@ -81,6 +74,9 @@ class ComedyCalculator(
             result += 300 * performance.audience
             return result
         }
+
+    override val volumeCredits: Int
+        get() = super.volumeCredits + performance.audience / 5
 }
 
 data class StatementData(
