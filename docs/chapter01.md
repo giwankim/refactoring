@@ -13,20 +13,11 @@
 Replace Temp with Query로 소거하려는 변수를 대체하면서 Change Function Declaration 기법도 함께 활용할 수 있다는 점이 흥미로웠다. 책 예제에서는
 이런 방식으로 `amountFor(aPerformance, play)`라는 메서드 시그니처에서 `playFor(perf)` 쿼리를 통해 `play`를 제거했다.
 
-계산 단계와 포맷팅 단계를 분리하는 것은 좋았는데 `StatementData`에 들어가는 데이터가 그때그떼 보이는 변수들을 모아놓은 것이라는 점이 좀 아쉬웠다. 문득,
-[TDD는 설계 방법론이 아니다](https://gyuwon.github.io/blog/2019/03/03/tdd-is-not-a-design-methodology.html) 라는 글이 떠 올랐다.
-언젠가 들어야지 하던 MF와 DHH의 [Is TDD is Dead?](https://martinfowler.com/articles/is-tdd-dead/)도 떠올랐다.
-
 계산 단계와 포매팅 단계를 분리하는 것은 좋았지만, `StatementData`에 들어가는 데이터가 그때그때 보이는 변수들을 단순히 모아놓은 것 같아 조금 아쉬웠다.
 문득 [TDD는 설계 방법론이 아니다](https://gyuwon.github.io/blog/2019/03/03/tdd-is-not-a-design-methodology.html)라는 글이 떠올랐다.
 언젠가 봐야지 하며 미뤄두었던 MF와 DHH의 [Is TDD is Dead?](https://martinfowler.com/articles/is-tdd-dead/)에도 그런 내용이 있을 것 같다.
 
-다형성을 활용해서 switch/when 문의 구조를 개선하는 Replace Conditional with Polymorphism 은 워낙 유명해서 복습하는 마음으로 즐겼다.
-`PerformanceCalculator`라는 객체 이름에서도 알 수 있듯이 여전히 OOP 적인 설계보다 절차지향적인 프로세서 느낌의 상속 구조를 만들었다는 점이 아쉬웠다.
-물론 경우에 따라서 특정 로직의 응집성을 고려해서 그런 절차지향적인 객체를 설계할 수 있다는 것을 조영호님의 강의에서 `Validator` 예시를 통해서 알고는 있다.
-추상 클래스 `Play`와 콘크리트 클래스 `Comedy`와 `Tragedy`를 만드는 방법은 어떤지 궁금하다.
-
-마지막으로, 다형성을 활용하여 ₩switch/when₩ 문의 구조를 개선하는 Replace Conditional with Polymorphism은 워낙 유명해서 복습하는 기분으로
+다형성을 활용하여 `switch/when` 문의 구조를 개선하는 Replace Conditional with Polymorphism은 워낙 유명해서 복습하는 기분으로
 즐겼다. 다만 `PerformanceCalculator`라는 객체 이름에서도 알 수 있듯이 여전히 절차지향적 프로세서 같은 느낌의 상속 구조를 만든 점이 조금 아쉬웠다.
 물론 경우에 따라 특정 로직의 응집도를 고려해 일부러 절차지향적인 객체를 설계할 수도 있다는 것은 조영호님의 강의에서 `Validator` 예시로 배웠다. 추상 클래스
 `Play`와 이를 구현하는 `Comedy`, `Tragedy`같은 구체 클래스를 만드는 방법은 어떨지 궁금하기도 하다.
