@@ -4,28 +4,9 @@ fun createStatementData(
     invoice: Invoice,
     plays: Map<String, Play>,
 ): StatementData {
-    fun amountFor(aPerformance: EnrichedPerformance): Int {
-        var result: Int
-        when (aPerformance.play.type) {
-            "tragedy" -> {
-                result = 40_000
-                if (aPerformance.audience > 30) {
-                    result += 1_000 * (aPerformance.audience - 30)
-                }
-            }
+    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
 
-            "comedy" -> {
-                result = 30_000
-                if (aPerformance.audience > 20) {
-                    result += 10_000 + 500 * (aPerformance.audience - 20)
-                }
-                result += 300 * aPerformance.audience
-            }
-
-            else -> throw IllegalArgumentException("unknown type: ${aPerformance.play.type}")
-        }
-        return result
-    }
+    fun amountFor(aPerformance: Performance): Int = PerformanceCalculator(aPerformance, playFor(aPerformance)).amount
 
     fun volumeCreditsFor(aPerformance: EnrichedPerformance): Int {
         var result = 0
@@ -36,12 +17,10 @@ fun createStatementData(
         return result
     }
 
-    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
-
     fun enrichPerformance(aPerformance: Performance): EnrichedPerformance {
         val calculator = PerformanceCalculator(aPerformance, playFor(aPerformance))
         return EnrichedPerformance(aPerformance.playID, aPerformance.audience, calculator.play).apply {
-            amount = amountFor(this)
+            amount = amountFor(aPerformance)
             volumeCredits = volumeCreditsFor(this)
         }
     }
