@@ -18,22 +18,18 @@ fun createStatementData(
         )
     }
 
-    fun totalVolumeCredits(data: StatementData): Int = data.performances.sumOf { it.volumeCredits }
-
-    fun totalAmount(data: StatementData): Int = data.performances.sumOf { it.amount }
-
-    return StatementData(invoice.customer, invoice.performances.map(::enrichPerformance)).apply {
-        totalAmount = totalAmount(this)
-        totalVolumeCredits = totalVolumeCredits(this)
-    }
+    return StatementData(invoice.customer, invoice.performances.map(::enrichPerformance))
 }
 
 data class StatementData(
     val customer: String,
     val performances: List<EnrichedPerformance>,
-    var totalAmount: Int = 0,
-    var totalVolumeCredits: Int = 0,
-)
+) {
+    val totalAmount: Int
+        get() = performances.sumOf { it.amount }
+    val totalVolumeCredits: Int
+        get() = performances.sumOf { it.volumeCredits }
+}
 
 data class EnrichedPerformance(
     val playID: String,
