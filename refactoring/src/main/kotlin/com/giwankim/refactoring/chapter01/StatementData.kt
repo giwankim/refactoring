@@ -24,6 +24,21 @@ fun createStatementData(
     }
 }
 
+data class StatementData(
+    val customer: String,
+    val performances: List<EnrichedPerformance>,
+    var totalAmount: Int = 0,
+    var totalVolumeCredits: Int = 0,
+)
+
+data class EnrichedPerformance(
+    val playID: String,
+    val audience: Int,
+    val play: Play,
+    var amount: Int = 0,
+    var volumeCredits: Int = 0,
+)
+
 fun createPerformanceCalculator(
     performance: Performance,
     play: Play,
@@ -34,7 +49,7 @@ fun createPerformanceCalculator(
         else -> throw IllegalArgumentException("unknown type: ${play.type}")
     }
 
-open class PerformanceCalculator(
+sealed class PerformanceCalculator(
     val performance: Performance,
     val play: Play,
 ) {
@@ -78,18 +93,3 @@ class ComedyCalculator(
     override val volumeCredits: Int
         get() = super.volumeCredits + performance.audience / 5
 }
-
-data class StatementData(
-    val customer: String,
-    val performances: List<EnrichedPerformance>,
-    var totalAmount: Int = 0,
-    var totalVolumeCredits: Int = 0,
-)
-
-data class EnrichedPerformance(
-    val playID: String,
-    val audience: Int,
-    val play: Play,
-    var amount: Int = 0,
-    var volumeCredits: Int = 0,
-)
