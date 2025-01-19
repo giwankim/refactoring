@@ -15,7 +15,6 @@ class StatementTest :
                         Performance("othello", 40),
                     ),
                 )
-
             val plays =
                 mapOf(
                     "hamlet" to Play("Hamlet", "tragedy"),

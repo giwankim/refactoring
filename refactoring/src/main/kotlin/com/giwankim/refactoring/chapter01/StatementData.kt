@@ -31,7 +31,7 @@ data class EnrichedPerformance(
         ): EnrichedPerformance {
             val play =
                 plays[performance.playID] ?: throw IllegalArgumentException("unknown playID: ${performance.playID}")
-            val calculator = createPerformanceCalculator(performance, play)
+            val calculator = PerformanceCalculator.create(performance, play)
             return EnrichedPerformance(
                 performance.playID,
                 performance.audience,
@@ -43,16 +43,6 @@ data class EnrichedPerformance(
     }
 }
 
-fun createPerformanceCalculator(
-    performance: Performance,
-    play: Play,
-): PerformanceCalculator =
-    when (play.type) {
-        "tragedy" -> TragedyCalculator(performance, play)
-        "comedy" -> ComedyCalculator(performance, play)
-        else -> throw IllegalArgumentException("unknown type: ${play.type}")
-    }
-
 sealed class PerformanceCalculator(
     val performance: Performance,
     val play: Play,
@@ -61,6 +51,18 @@ sealed class PerformanceCalculator(
 
     open val volumeCredits: Int
         get() = maxOf(performance.audience - 30, 0)
+
+    companion object {
+        fun create(
+            performance: Performance,
+            play: Play,
+        ): PerformanceCalculator =
+            when (play.type) {
+                "tragedy" -> TragedyCalculator(performance, play)
+                "comedy" -> ComedyCalculator(performance, play)
+                else -> throw IllegalArgumentException("unknown type: ${play.type}")
+            }
+    }
 }
 
 class TragedyCalculator(
