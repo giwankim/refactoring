@@ -4,13 +4,14 @@ fun createStatementData(
     invoice: Invoice,
     plays: Map<String, Play>,
 ): StatementData {
-    fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
+    fun playFor(performance: Performance): Play =
+        plays[performance.playID] ?: throw IllegalArgumentException("unknown playID: ${performance.playID}")
 
-    fun enrichPerformance(aPerformance: Performance): EnrichedPerformance {
-        val calculator = createPerformanceCalculator(aPerformance, playFor(aPerformance))
+    fun enrichPerformance(performance: Performance): EnrichedPerformance {
+        val calculator = createPerformanceCalculator(performance, playFor(performance))
         return EnrichedPerformance(
-            aPerformance.playID,
-            aPerformance.audience,
+            performance.playID,
+            performance.audience,
             calculator.play,
             calculator.amount,
             calculator.volumeCredits,

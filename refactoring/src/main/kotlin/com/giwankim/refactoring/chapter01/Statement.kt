@@ -38,7 +38,7 @@ fun renderHtml(data: StatementData): String =
         appendLine("<p>You earned <em>${data.totalVolumeCredits}</em> credits</p>")
     }
 
-fun usd(aNumber: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(aNumber / 100.0)
+fun usd(number: Int): String = NumberFormat.getCurrencyInstance(Locale.US).format(number / 100.0)
 
 @Serializable
 data class Play(
