@@ -38,16 +38,11 @@ open class PerformanceCalculator(
     val performance: Performance,
     val play: Play,
 ) {
-    val amount: Int
+    open val amount: Int
         get() {
             var result: Int
             when (play.type) {
-                "tragedy" -> {
-                    result = 40_000
-                    if (performance.audience > 30) {
-                        result += 1_000 * (performance.audience - 30)
-                    }
-                }
+                "tragedy" -> error("Not expected to reach here")
 
                 "comedy" -> {
                     result = 30_000
@@ -76,7 +71,16 @@ open class PerformanceCalculator(
 class TragedyCalculator(
     performance: Performance,
     play: Play,
-) : PerformanceCalculator(performance, play)
+) : PerformanceCalculator(performance, play) {
+    override val amount: Int
+        get() {
+            var result = 40_000
+            if (performance.audience > 30) {
+                result += 1_000 * (performance.audience - 30)
+            }
+            return result
+        }
+}
 
 class ComedyCalculator(
     performance: Performance,
