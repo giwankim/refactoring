@@ -7,7 +7,7 @@ fun createStatementData(
     fun playFor(perf: Performance): Play = plays[perf.playID] ?: throw IllegalArgumentException("unknown playID: ${perf.playID}")
 
     fun enrichPerformance(aPerformance: Performance): EnrichedPerformance {
-        val calculator = PerformanceCalculator(aPerformance, playFor(aPerformance))
+        val calculator = createPerformanceCalculator(aPerformance, playFor(aPerformance))
         return EnrichedPerformance(aPerformance.playID, aPerformance.audience, calculator.play).apply {
             amount = calculator.amount
             volumeCredits = calculator.volumeCredits
@@ -23,6 +23,11 @@ fun createStatementData(
         totalVolumeCredits = totalVolumeCredits(this)
     }
 }
+
+fun createPerformanceCalculator(
+    performance: Performance,
+    play: Play,
+): PerformanceCalculator = PerformanceCalculator(performance, play)
 
 class PerformanceCalculator(
     val performance: Performance,
