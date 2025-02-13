@@ -76,6 +76,11 @@ Speculative generality can be spotted when the only users of a function or class
 
 ## Message Chains
 
+You see message chains when a client asks one object for another object, which the client then asks for yet another object, and so on. Navigating this way means the client is coupled to the structure of the navigation.
+
+- The move to use here is _Hide Delegate_. In principle, you can do this to every object in the chain, but doing this often turns every intermediate object into a middle man.
+- Often, a better alternative is to see what the resulting object is used for. See whether you can use _Extract Function_ to take a piece the code that uses it and then _Move Function_ to push it down the chain. If several clients of one of the objects in the chain want to navigate the rest of the way, add a method to do that.
+
 ## Middle Man
 
 ## Insider Trading
