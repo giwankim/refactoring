@@ -183,7 +183,18 @@ Mutable data isn't a big problem when it's a variable whose scope is just a coup
 
 ## Divergent Change
 
+When we make a change, we want to be able to jump to a single clear point in the system and make the change. When you can't do this, you are smelling one of two closely related pungencies.
+
+Divergent change occurs when one module is often changed in different ways for different reasons.
+
+- If two aspects naturally form a sequence, then _Split Phase_ separates the two with a clear data structure between them.
+- If there's more back-and-forth in the calls, then create appropriate modules and use _Move Function_ to divide the processing up.
+- If function mix the two types of processing within themselves, use _Extract Function_ to separate them before moving.
+- If the modules are classes, then _Extract Class_ helps formalize how to do the split.
+
 ## Shotgun Surgery
+
+Shotgun surgery is similar to divergent change but is the opposite. You whiff this when, every time you make a change, you have to make a lot of little edits to a lot of different classes.
 
 ## Feature Envy
 
