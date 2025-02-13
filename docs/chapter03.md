@@ -169,12 +169,27 @@ Our key defense here is _Encapsulate Variable_. At least when you have it wrappe
 ## Mutable Data
 
 - Use _Encapsulate Variable_ to ensure that all updates occur through narrow functions that can be easier to monitor and evolve.
+- If a variable is being updated to store different things, use _Split Variable_ both to keep them separate and avoid risky update.
+- Try as much as possible to move logic out of code that processes the update by using _Slide Statements_ and _Extract Function_ to separate the side-effect-free code from anything that performs the update.
+- In APIs, use _Separate Query from Modifier_ to ensure callers don't need to call code that has side effects unless they really need to.
+- _Remove Setting Method_ as soon as we can-sometimes, just trying to find clients of a setter helps spot opportunities to reduce the scope of variable.
+
+Mutable data that can be calculated elsewhere is particularly pungent. Apply __Replace Derived Variable with Query__.
+
+Mutable data isn't a big problem when it's a variable whose scope is just a couple of lines-but its risk increases as its scope grows.
+
+- Use _Combine Functions into Class_ or _Combine Functions into Transform_ to limit how much code needs to update a variable.
+- If a variable contains some data with internal structure, it's usually better to replace the entire structure rather than modify it in place, using _Change Reference to Value_.
 
 ## Divergent Change
 
 ## Shotgun Surgery
 
 ## Feature Envy
+
+A classic case of Feature Envy occurs when a function in one module spends more time communicating with functions or data inside another module than it does within its own module. The function clearly wants to be with the data, so use _Move Function_ to get it there. Sometimes, only a part of a function suffers from envy, in which case use _Extract Function_ on the jealous bit, and _Move Function_ to give it a dream home.
+
+TODO
 
 ## Data Clumps
 
