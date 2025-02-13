@@ -89,6 +89,161 @@ You see message chains when a client asks one object for another object, which t
 
 ## Alternative Classes with Different Interfaces
 
+One of the great benefits of using classes is the support for substitution, allowing one class to swap in for another in times of need.
+
+- Use _Change Function Declaration_ to make functions match up.
+- Keep using _Move Function_ to move behavior into classes until the protocols match.
+- If this leads to duplication, you may be able to use _Extract Superclass_ to atone.
+
+### Example
+
+#### **1. Before Refactoring: Alternative Classes with Different Interfaces**
+
+Imagine you have two logger classes. One logs messages to a file and the other logs to a database. However, they use different method names:
+
+```kotlin
+// Logs messages to a file
+class FileLogger {
+    fun logMessage(message: String) {
+        println("FileLogger: $message")
+    }
+}
+
+// Logs messages to a database but uses a different method name
+class DatabaseLogger {
+    fun recordMessage(message: String) {
+        println("DatabaseLogger: $message")
+    }
+}
+
+// Client code (suppose we want to swap these loggers later)
+fun performLogging(logger: Any, message: String) {
+    when (logger) {
+        is FileLogger -> logger.logMessage(message)
+        is DatabaseLogger -> logger.recordMessage(message)
+        else -> println("Unknown logger")
+    }
+}
+```
+
+*Problem:*  
+Clients must know about the different method names (`logMessage` vs. `recordMessage`), making substitution cumbersome.
+
+---
+
+#### **2. Step One: Change Function Declaration**
+
+First, we change the declaration in `DatabaseLogger` so its interface matches `FileLogger`—both now provide a `logMessage` method:
+
+```kotlin
+class DatabaseLogger {
+    // Changed method name from recordMessage to logMessage
+    fun logMessage(message: String) {
+        println("DatabaseLogger: $message")
+    }
+}
+```
+
+Now both loggers share the same public method name:
+```kotlin
+fun performLogging(logger: Any, message: String) {
+    when (logger) {
+        is FileLogger -> logger.logMessage(message)
+        is DatabaseLogger -> logger.logMessage(message)
+        else -> println("Unknown logger")
+    }
+}
+```
+
+---
+
+#### **3. Step Two: Move Function (and Introduce Shared Behavior)**
+
+Suppose you decide that both loggers should add a timestamp to every message. Initially, you might add this logic to each class separately:
+
+```kotlin
+class FileLogger {
+    fun logMessage(message: String) {
+        val timestampedMessage = "[${System.currentTimeMillis()}] $message"
+        println("FileLogger: $timestampedMessage")
+    }
+}
+
+class DatabaseLogger {
+    fun logMessage(message: String) {
+        val timestampedMessage = "[${System.currentTimeMillis()}] $message"
+        println("DatabaseLogger: $timestampedMessage")
+    }
+}
+```
+
+*Issue:*  
+The logic for adding a timestamp is duplicated.
+
+To remove duplication, you can use **Move Function** by shifting the shared behavior (adding a timestamp) into a common place.
+
+---
+
+#### **4. Step Three: Extract Superclass to Share Common Protocol and Behavior**
+
+Create an abstract superclass (or base class) that encapsulates the common behavior. In our case, the superclass provides the unified `logMessage` method and a helper for adding the timestamp. It then delegates the actual logging to subclasses via an abstract method.
+
+```kotlin
+abstract class BaseLogger {
+    // Public API: the unified logging method
+    fun logMessage(message: String) {
+        val timestampedMessage = addTimestamp(message)
+        doLog(timestampedMessage)
+    }
+    
+    // Private helper function to add a timestamp
+    private fun addTimestamp(message: String): String {
+        return "[${System.currentTimeMillis()}] $message"
+    }
+    
+    // Abstract method that subclasses must implement for actual logging
+    protected abstract fun doLog(message: String)
+}
+```
+
+Now, have both loggers extend this superclass and provide their specific logging implementation:
+
+```kotlin
+class FileLogger : BaseLogger() {
+    override fun doLog(message: String) {
+        println("FileLogger: $message")
+    }
+}
+
+class DatabaseLogger : BaseLogger() {
+    override fun doLog(message: String) {
+        println("DatabaseLogger: $message")
+    }
+}
+```
+
+With this refactoring:
+
+- **Change Function Declaration** was used to align method names.
+- **Move Function** was used to move the timestamping behavior into the `BaseLogger`.
+- **Extract Superclass** was used to encapsulate the common protocol, ensuring both loggers have the same interface and shared behavior.
+
+Now, client code can use either logger interchangeably:
+
+```kotlin
+fun performLogging(logger: BaseLogger, message: String) {
+    logger.logMessage(message)
+}
+
+fun main() {
+    val fileLogger = FileLogger()
+    val databaseLogger = DatabaseLogger()
+    
+    performLogging(fileLogger, "This is a file log.")
+    performLogging(databaseLogger, "This is a database log.")
+}
+```
+
 ## Data Class
 
 ## Refused Bequest
