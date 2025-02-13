@@ -32,7 +32,22 @@ Renaming is not just an exercise in changing names. When you can't think of a go
 
 ## Data Clumps
 
+Bunches of data that hang around together really ought to find a home together.
+
+1. The first step is to look for where the clumps appear as fields. Use _Extract Class_ on the fields to turn the clumps into an object.
+2. Then turn your attention to method signatures using _Introduce Parameter Object_ or _Preserve Whole Object_.
+
+A good test is to consider deleting one of the data values. If the other data don't make sense, it's a sign that you have an object that's dying to be born.
+
+We advocate creating a class here, not a simple record structure. You can now look for cases of feature envy, which will suggest behavior that can be moved into your new classes.
+
 ## Primitive Obsession
+
+We find programmers are curiously reluctant to create their own fundamental types which are useful for their domain-such as money, coordinates, or ranges.
+
+- You can move out of the primitive cave into the world of meaningful types by using _Replace Primitive with Object_.
+- If the primitive is a type code controlling conditional behavior, use _Replace Type Code with Subclasses_ followed by _Replace Conditional with Polymorphism_.
+- Groups of primitives that commonly appear together are data clumps and should be civilized with _Extract Class_ and _Introduce Parameter Object_.
 
 ## Repeated Switches
 
