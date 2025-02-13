@@ -40,6 +40,15 @@ We find that pipeline operations, such as filter and map, help us quickly see th
 
 ## Speculative Generality
 
+You get Speculative Generality when people say, "I think we'll need the ability to do this kind of thing someday" and thus add all sorts of hooks and special cases to handle things that aren't required.
+
+- If you have abstract classes that aren't doing much, use _Collapse Hierarchy_.
+- Unnecessary delegation can be removed with _Inline Function_ and _Inline Class_.
+- Functions with unused parameters should be subject to _Change Function Declaration_.
+- Also apply _Change Function Declaration_ to remove any unneeded parameters, which often get tossed in for future variations that never come to pass.
+
+Speculative generality can be spotted when the only users of a function or class are test cases. If you find such a case, delete the test case and apply _Remove Dead Code_.
+
 ## Temporary Field
 
 ## Message Chains
