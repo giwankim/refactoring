@@ -168,6 +168,8 @@ Our key defense here is _Encapsulate Variable_. At least when you have it wrappe
 
 ## Mutable Data
 
+- Use _Encapsulate Variable_ to ensure that all updates occur through narrow functions that can be easier to monitor and evolve.
+
 ## Divergent Change
 
 ## Shotgun Surgery
@@ -194,6 +196,8 @@ We find programmers are curiously reluctant to create their own fundamental type
 - Groups of primitives that commonly appear together are data clumps and should be civilized with _Extract Class_ and _Introduce Parameter Object_.
 
 ## Repeated Switches
+
+The problem with repeated switch, where the same conditional switching logic pops up in different places, is that, whenever you add a clause, you have to find all the switches and update them. Apply _Replace Conditional with Polymorphism_.
 
 ## Loops
 
@@ -391,6 +395,106 @@ fun main() {
 ## Data Class
 
 ## Refused Bequest
+
+Subclasses get to inherit the methods and data of their parents. But what if they don't want or need what they are given?
+
+The traditional story is that this means the hierarchy is wrong. You need to create a new sibling class and use _Push Down Method_ and _Push Down Field_ to push all the unused code to the sibling.
+
+Nine times out of ten this smell is too faint to be worth cleaning.
+
+The smell of refused bequest is much stronger if the subclass is reusing behavior but does not want to support the interface of the superclass. In this case, however, don't fiddle with the hierarchy; you want to gut it by applying _Replace Subclass with Delegate_ or _Replace Superclass with Delegate_.
+
+Below is an example in Kotlin that shows how to avoid forcing a subclass to support an interface it doesn’t really need by using delegation rather than inheritance. In the classic “refused bequest” scenario, you might have a base class like this:
+
+```kotlin
+open class Bird {
+    open fun layEggs() {
+        println("Laying eggs.")
+    }
+
+    open fun fly() {
+        println("Flying!")
+    }
+}
+
+class Penguin : Bird() {
+    // Penguins don't fly, so we have to override and disable fly()
+    override fun fly() {
+        throw UnsupportedOperationException("Penguins can't fly!")
+    }
+}
+```
+
+This design forces every bird to have a `fly()` method—even when some birds (like penguins) don’t fly. One way to fix this is to separate the concerns into different interfaces and use delegation to share common behavior. This is the essence of **Replace Subclass with Delegate / Replace Superclass with Delegate**.
+
+### Example: Using Delegation to Avoid a Refused Interface
+
+We can define two interfaces: one for basic bird behavior (e.g., laying eggs) and another for flying behavior. Then we create a delegate class for flying behavior and let only those birds that actually fly implement the flying interface. This way, a penguin only implements the basic bird interface without being forced to support flying.
+
+```kotlin
+// Define an interface for common bird behavior.
+interface Bird {
+    fun layEggs()
+}
+
+// Define an interface only for birds that can fly.
+interface Flyer {
+    fun fly()
+}
+
+// A delegate that encapsulates flying behavior.
+class FlyingDelegate : Flyer {
+    override fun fly() {
+        println("Flying high in the sky!")
+    }
+}
+
+// A bird that flies: it implements both Bird and Flyer.
+// It delegates the flying behavior to an instance of FlyingDelegate.
+class FlyingBird(private val flyingDelegate: Flyer = FlyingDelegate()) : Bird, Flyer {
+    override fun layEggs() {
+        println("Laying eggs.")
+    }
+
+    override fun fly() {
+        flyingDelegate.fly()
+    }
+}
+
+// A Penguin only implements Bird; it does not need to support flying.
+class Penguin : Bird {
+    override fun layEggs() {
+        println("Laying eggs.")
+    }
+}
+
+fun main() {
+    // Using a bird that can fly.
+    val flyingBird: Bird = FlyingBird()
+    flyingBird.layEggs()
+    if (flyingBird is Flyer) {
+        flyingBird.fly()
+    }
+
+    // Using a penguin that does not support flying.
+    val penguin: Bird = Penguin()
+    penguin.layEggs()
+    // penguin.fly() // Not allowed because Penguin doesn't implement Flyer.
+}
+```
+
+### Explanation
+
+- **Separate Interfaces:**  
+  We define `Bird` for shared behavior (laying eggs) and `Flyer` for flying behavior. This separation ensures that only birds that actually fly need to implement `Flyer`.
+
+- **Delegation:**  
+  The class `FlyingBird` implements both `Bird` and `Flyer` but delegates the flying behavior to a `FlyingDelegate`. This keeps flying logic separate and reusable.
+
+- **No Forced Implementation:**  
+  The `Penguin` class implements only the `Bird` interface. There’s no `fly()` method in its API, so there’s no need to override or disable unwanted behavior.
+
+This design adheres to the “Replace Subclass with Delegate” or “Replace Superclass with Delegate” idea by using composition to share common behavior rather than forcing a subclass to inherit methods (and an interface) it doesn’t want.
 
 ## Comments
 
