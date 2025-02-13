@@ -162,6 +162,10 @@ Classes are a great way to reduce parameter list sizes. They are particularly us
 
 ## Global Data
 
+The problem with global data is that it can be modified from anywhere in the code base, and there's no mechanism to discover which bit of code touched it.
+
+Our key defense here is _Encapsulate Variable_. At least when you have it wrapped by a function, you can start seeing where it's modified and start to control its access. Then, it's good to limit its scope as much as possible by moving it within a class or module where only that module's code can see it.
+
 ## Mutable Data
 
 ## Divergent Change
