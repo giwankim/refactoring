@@ -235,6 +235,10 @@ We find that pipeline operations, such as filter and map, help us quickly see th
 
 ## Lazy Element
 
+Sometimes structure isn't needed.
+
+Use _Inline Function_ or _Inline Class_. With inheritance, you can use _Collapse Hierarchy_ to remove unnecessary structure.
+
 ## Speculative Generality
 
 You get Speculative Generality when people say, "I think we'll need the ability to do this kind of thing someday" and thus add all sorts of hooks and special cases to handle things that aren't required.
@@ -339,6 +343,14 @@ You see message chains when a client asks one object for another object, which t
 - Often, a better alternative is to see what the resulting object is used for. See whether you can use _Extract Function_ to take a piece the code that uses it and then _Move Function_ to push it down the chain. If several clients of one of the objects in the chain want to navigate the rest of the way, add a method to do that.
 
 ## Middle Man
+
+One of the prime features of objects is encapsulation. Encapsulation often comes with delegation.
+
+However, this can go too far. 
+
+- _Remove Middle Man_.
+- Use _Inline Function_ to inline them into the caller.
+- If there is additional behavior, you can use _Replace Superclass with Delegate_ or _Replace Subclass with Delegate_ to fold the middle man into the real object.
 
 ## Insider Trading
 
