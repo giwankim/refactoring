@@ -16,6 +16,111 @@ Renaming is not just an exercise in changing names. When you can't think of a go
 
 ## Duplicated Code
 
+- The simplest duplicated code problem is when you have the same expression in tow methods of the same class. Then all you have to do is _Extract Function_.
+- If you have code that's similar,
+  1. see if you can use _Slide Statements_ to arrange the code so the similar items are all together for easy extraction.
+  2. If the duplicate fragments are in subclasses of a common base class, you can use _Pull Up Method_ to avoid calling one from another.
+
+Below are two Kotlin examples that demonstrate how to refactor duplicated code:
+
+---
+
+### **Example 1: Duplicated Code in the Same Class (Extract Function)**
+
+Imagine you have an `OrderProcessor` class where two methods contain the same expression for calculating a total amount (by adding tax). The duplicated code makes maintenance error‐prone. We can refactor it by extracting the duplicated code into its own helper method.
+
+#### **Before Refactoring**
+
+```kotlin
+data class Order(val id: Int, val amount: Double)
+
+class OrderProcessor {
+    fun processOrder(order: Order) {
+        // Duplicated calculation:
+        val tax = order.amount * 0.1
+        val total = order.amount + tax
+        println("Processing order ${order.id}: total amount is $total")
+        // ... additional processing logic ...
+    }
+    
+    fun refundOrder(order: Order) {
+        // Same duplicated calculation:
+        val tax = order.amount * 0.1
+        val total = order.amount + tax
+        println("Refunding order ${order.id}: refund amount is $total")
+        // ... additional refund logic ...
+    }
+}
+```
+
+#### **After Refactoring (Extract Function)**
+
+We extract the tax and total calculation into its own private function, `calculateTotal()`, then call that function from both methods:
+
+```kotlin
+data class Order(val id: Int, val amount: Double)
+
+class OrderProcessor {
+    // Extracted function that encapsulates the duplicated logic.
+    private fun calculateTotal(order: Order): Double {
+        val tax = order.amount * 0.1
+        return order.amount + tax
+    }
+    
+    fun processOrder(order: Order) {
+        val total = calculateTotal(order)
+        println("Processing order ${order.id}: total amount is $total")
+        // ... additional processing logic ...
+    }
+    
+    fun refundOrder(order: Order) {
+        val total = calculateTotal(order)
+        println("Refunding order ${order.id}: refund amount is $total")
+        // ... additional refund logic ...
+    }
+}
+```
+
+### **Example 2: Duplicated Code in Subclasses (Pull Up Method)**
+
+Sometimes duplicate code appears in similar methods across different subclasses. In this example, both `FullTimeEmployee` and `ContractEmployee` calculate a bonus in the same way. By pulling up the common method to a superclass, you eliminate duplication and standardize the behavior.
+
+#### **Before Refactoring**
+
+```kotlin
+// Two separate classes with similar bonus calculations.
+class FullTimeEmployee(val baseSalary: Double) {
+    fun computeBonus(): Double {
+        // Duplicated bonus calculation
+        return baseSalary * 0.1
+    }
+}
+
+class ContractEmployee(val baseSalary: Double) {
+    fun computeBonus(): Double {
+        // Duplicated bonus calculation
+        return baseSalary * 0.1
+    }
+}
+```
+
+#### **After Refactoring (Pull Up Method with an Extracted Superclass)**
+
+We create a common superclass `Employee` that defines `computeBonus()`, then have both subclasses inherit from it:
+
+```kotlin
+open class Employee(val baseSalary: Double) {
+    // Common bonus calculation moved to the superclass.
+    fun computeBonus(): Double {
+        return baseSalary * 0.1
+    }
+}
+
+class FullTimeEmployee(baseSalary: Double) : Employee(baseSalary)
+
+class ContractEmployee(baseSalary: Double) : Employee(baseSalary)
+```
+
 ## Long Function
 
 ## Long Parameter List
