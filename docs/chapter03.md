@@ -30,6 +30,12 @@ We have come up with the notion of describing the "when" of refactoring in terms
 
 ## Loops
 
+Loops have been a core part of programming since the earliest languages.
+
+These days, however, first-class functions are widely supported, so we can use _Replace Loop with Pipeline_ to retire those anachronisms.
+
+We find that pipeline operations, such as filter and map, help us quickly see the elements that are included in the processing and what is done with them.
+
 ## Lazy Element
 
 ## Speculative Generality
