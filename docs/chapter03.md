@@ -153,6 +153,13 @@ Conditionals and loops also give signs for extractions.
 
 ## Long Parameter List
 
+- If you can obtain one parameter by asking another parameter for it, you can use _Replace Parameter with Query_ to remove the second parameter.
+- Rather than pulling lots of data out of an existing data structure, you can use _Preserve Whole Object_ to pass the original data structure.
+- If several parameters always fit together, combine them with _Introduce Parameter Object_.
+- If a parameter is used as a flag to dispatch different behavior, use _Remove Flag Argument_.
+
+Classes are a great way to reduce parameter list sizes. They are particularly useful when multiple functions share several parameter values. Then, you can use _Combine Functions into Class_ to capture those common values as fields.
+
 ## Global Data
 
 ## Mutable Data
