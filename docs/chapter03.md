@@ -6,6 +6,14 @@ We have come up with the notion of describing the "when" of refactoring in terms
 
 ## Mysterious Name
 
+Naming is one of the [two hard things](https://martinfowler.com/bliki/TwoHardThings.html) in programming.
+
+- _Change Function Declaration_
+- _Rename Variable_
+- _Rename Field_
+
+Renaming is not just an exercise in changing names. When you can't think of a good name for something, it's often a sign of a deeper design malaise.
+
 ## Duplicated Code
 
 ## Long Function
