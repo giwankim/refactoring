@@ -248,6 +248,89 @@ Speculative generality can be spotted when the only users of a function or class
 
 ## Temporary Field
 
+Sometimes you see a class in which a field is set only in certain circumstances.
+
+Use _Extract Class_ to create a home for the orphan variables. Use _Move Function_ to put all the code that concerns the fields into this new class. You may also be able to eliminate conditional code by using _Introduce Special Case_ to create an alternative class for when the variables aren't valid.
+
+Below is an example in Kotlin that demonstrates the “Temporary Field” code smell and how you can refactor it using the Extract Class and Move Function techniques. In this example, we start with a `Booking` class that has a temporary field (`cancellationReason`) which is only meaningful when a booking is cancelled.
+
+### **Before Refactoring**
+
+In the code below, the field `cancellationReason` exists in every `Booking` instance—even though it’s only used when the booking is cancelled. This can be confusing because the field is irrelevant for active bookings.
+
+```kotlin
+import java.time.LocalDate
+
+class Booking(
+    val customerName: String,
+    val date: LocalDate,
+    val cancelled: Boolean,
+    // This field is only valid when cancelled is true.
+    val cancellationReason: String? = null
+) {
+    fun getStatus(): String {
+        return if (cancelled) {
+            "Cancelled: $cancellationReason"
+        } else {
+            "Active"
+        }
+    }
+}
+
+fun main() {
+    val booking1 = Booking("Alice", LocalDate.now(), cancelled = false)
+    val booking2 = Booking("Bob", LocalDate.now(), cancelled = true, cancellationReason = "Weather issues")
+    println(booking1.getStatus()) // Output: Active
+    println(booking2.getStatus()) // Output: Cancelled: Weather issues
+}
+```
+
+### **After Refactoring**
+
+Using **Extract Class**, we create a dedicated `CancellationInfo` class to hold cancellation details. Then, with **Move Function**, we shift the code that deals with cancellation into that class. This removes the temporary field from the main `Booking` class and eliminates the need for conditional logic in `getStatus()`.
+
+```kotlin
+import java.time.LocalDate
+
+class Booking(
+    val customerName: String,
+    val date: LocalDate,
+    // Instead of a temporary field, we now hold cancellation details in its own class.
+    val cancellationInfo: CancellationInfo? = null
+) {
+    fun getStatus(): String {
+        // Delegates status formatting to CancellationInfo if present.
+        return cancellationInfo?.getStatus() ?: "Active"
+    }
+}
+
+class CancellationInfo(private val reason: String) {
+    // This function encapsulates the logic related to cancellation details.
+    fun getStatus(): String {
+        return "Cancelled: $reason"
+    }
+}
+
+fun main() {
+    val booking1 = Booking("Alice", LocalDate.now())
+    val booking2 = Booking("Bob", LocalDate.now(), CancellationInfo("Weather issues"))
+    println(booking1.getStatus()) // Output: Active
+    println(booking2.getStatus()) // Output: Cancelled: Weather issues
+}
+```
+
+---
+
+### **Explanation**
+
+- **Before Refactoring:**  
+  The `Booking` class holds both the booking details and the cancellation details, even though cancellation details are only valid when a booking is cancelled. This makes the code harder to understand and maintain.
+
+- **After Refactoring:**  
+  - **Extract Class:** The cancellation-related data and behavior are moved into a new class, `CancellationInfo`.  
+  - **Move Function:** The method `getStatus()` in `CancellationInfo` now handles the cancellation-specific logic, removing conditionals from `Booking`.
+  - **Result:** The main `Booking` class is simplified and no longer contains orphan fields that are only relevant in some circumstances.
+
 ## Message Chains
 
 You see message chains when a client asks one object for another object, which the client then asks for yet another object, and so on. Navigating this way means the client is coupled to the structure of the navigation.
