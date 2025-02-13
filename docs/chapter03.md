@@ -21,10 +21,6 @@ Renaming is not just an exercise in changing names. When you can't think of a go
   1. see if you can use _Slide Statements_ to arrange the code so the similar items are all together for easy extraction.
   2. If the duplicate fragments are in subclasses of a common base class, you can use _Pull Up Method_ to avoid calling one from another.
 
-Below are two Kotlin examples that demonstrate how to refactor duplicated code:
-
----
-
 ### **Example 1: Duplicated Code in the Same Class (Extract Function)**
 
 Imagine you have an `OrderProcessor` class where two methods contain the same expression for calculating a total amount (by adding tax). The duplicated code makes maintenance error‐prone. We can refactor it by extracting the duplicated code into its own helper method.
@@ -122,6 +118,38 @@ class ContractEmployee(baseSalary: Double) : Employee(baseSalary)
 ```
 
 ## Long Function
+
+Older languages carried an overhead in subroutine calls. Development environments allow you to quickly jump between a function call and its declaration.
+
+The net effect is that you should be much more aggressive about decomposing functions.
+
+- A heuristic we follow is that whenever we feel the need to comment something, we write a function instead.
+- Ninety-nine percent of the time, all you have to do to shorten a function is _Extract Function_.
+
+### Function with lots of parameters and temporary variables
+
+If you have a function with lots of parameters and temporary variables, they get in the way of extracting.
+
+- You can often use _Replace Temp with Query_ to eliminate the temps.
+- Long list of parameters can be slimmed down with _Introduce Parameter Object_ and _Preserve Whole Object_.
+- If you've tried that and you still have too many temps and parameters, it's time to get out the heavy artillery: _Replace Function with Command_.
+
+### Identifying clumps of code to extract
+
+A good technique to identify clumps of code to extract is to look for comments.
+
+Conditionals and loops also give signs for extractions.
+
+#### Conditionals
+
+- Use _Decompose Conditional_ to deal with conditional expressions.
+- A big switch statement should have its legs turned into single function calls with _Extract Function_.
+- If there's more than one switch statement switching on the same condition, you should apply _Replace Conditional with Polymorphism_.
+
+#### Loops
+
+- With loops, extract the loop and the code within the loop into its own method.
+- If you find it hard to given an extracted loop a name, that may be because it's doing two different things-in which case don't be afraid to use _Split Loop_ to break out the separate tasks.
 
 ## Long Parameter List
 
