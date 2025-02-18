@@ -6,9 +6,18 @@ import io.kotest.matchers.shouldBe
 class ProvinceTest :
     FunSpec({
         context("provide") {
+            lateinit var asia: Province
+
+            beforeEach {
+                asia = Province.create(sampleProvinceData())
+            }
+
             test("shortfall") {
-                val asia = Province.create(sampleProvinceData())
                 asia.shortfall shouldBe 5
+            }
+
+            test("profit") {
+                asia.profit shouldBe 230
             }
         }
     })
