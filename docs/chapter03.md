@@ -196,6 +196,11 @@ Divergent change occurs when one module is often changed in different ways for d
 
 Shotgun surgery is similar to divergent change but is the opposite. You whiff this when, every time you make a change, you have to make a lot of little edits to a lot of different classes.
 
+- Use _Move Function_ and _Move Field_ to put all the changes into a single module.
+- If you have a bunch of functions operating on similar data, use _Combine Functions into Class_.
+- If you have functions that are transforming or enriching a data structure, use _Combine Functions into Transform_.
+- _Split Phase_ is often useful here if the common functions can combine their output for a consuming phase of logic.
+
 ## Feature Envy
 
 A classic case of Feature Envy occurs when a function in one module spends more time communicating with functions or data inside another module than it does within its own module. The function clearly wants to be with the data, so use _Move Function_ to get it there. Sometimes, only a part of a function suffers from envy, in which case use _Extract Function_ on the jealous bit, and _Move Function_ to give it a dream home.
@@ -263,8 +268,6 @@ Below is an example in Kotlin that demonstrates the “Temporary Field” code s
 In the code below, the field `cancellationReason` exists in every `Booking` instance—even though it’s only used when the booking is cancelled. This can be confusing because the field is irrelevant for active bookings.
 
 ```kotlin
-import java.time.LocalDate
-
 class Booking(
     val customerName: String,
     val date: LocalDate,
@@ -294,8 +297,6 @@ fun main() {
 Using **Extract Class**, we create a dedicated `CancellationInfo` class to hold cancellation details. Then, with **Move Function**, we shift the code that deals with cancellation into that class. This removes the temporary field from the main `Booking` class and eliminates the need for conditional logic in `getStatus()`.
 
 ```kotlin
-import java.time.LocalDate
-
 class Booking(
     val customerName: String,
     val date: LocalDate,
