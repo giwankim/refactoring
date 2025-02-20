@@ -4,9 +4,9 @@ class Producer(
     val province: Province,
     val name: String,
     var cost: Int,
-    production: Int = 0,
+    intialProduction: Int = 0,
 ) {
-    private var _production: Int = production
+    private var _production: Int = intialProduction
     var production: Int
         get() = _production
         set(value) {

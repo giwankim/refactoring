@@ -6,7 +6,7 @@ class Province(
     var price: Int,
 ) {
     var totalProduction = 0
-    private val _producers = mutableListOf<Producer>()
+    private val _producers: MutableList<Producer> = mutableListOf()
     val producers: List<Producer>
         get() = _producers.toList()
     val shortfall: Int
