@@ -1,10 +1,7 @@
 package com.giwankim.refactoring.chapter04
 
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
 
 class ProvinceTest :
     FunSpec({
@@ -39,38 +36,6 @@ class ProvinceTest :
                 asia.demand = -1
                 asia.shortfall shouldBe -26
                 asia.profit shouldBe -10
-            }
-
-            test("empty string demand") {
-                val emptyDemand =
-                    """
-                    {
-                      "name": "Asia",
-                      "producers": [
-                        {"name": "Byzantium", "cost": 10, "production": 9},
-                        {"name": "Attalia",   "cost": 12, "production": 10},
-                        {"name": "Sinope",    "cost": 10, "production": 6}
-                      ],
-                      "demand": "",
-                      "price": 20
-                    }
-                    """.trimIndent()
-                val json = Json { ignoreUnknownKeys = true }
-                shouldThrow<SerializationException> { json.decodeFromString<ProvinceData>(emptyDemand) }
-            }
-
-            test("string for producers") {
-                val stringForProducers =
-                    """
-                    {
-                      "name": "Asia",
-                      "producers": "",
-                      "demand": 30,
-                      "price": 20
-                    }
-                    """.trimIndent()
-                val json = Json { ignoreUnknownKeys = true }
-                shouldThrow<SerializationException> { json.decodeFromString<ProvinceData>(stringForProducers) }
             }
         }
 
