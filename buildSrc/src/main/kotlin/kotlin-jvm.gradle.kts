@@ -5,6 +5,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 kotlin {
