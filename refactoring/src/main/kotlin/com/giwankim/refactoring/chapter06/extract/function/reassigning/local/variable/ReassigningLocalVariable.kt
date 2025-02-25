@@ -8,15 +8,17 @@ import java.util.Locale
 
 fun printOwing(invoice: Invoice) {
     printBanner()
-
-    // calculate outstanding
-    var outstanding = 0
-    for (o in invoice.orders) {
-        outstanding += o.amount
-    }
-
+    val outstanding = calculateOutstanding(invoice)
     recordDueDate(invoice)
     printDetails(invoice, outstanding)
+}
+
+private fun calculateOutstanding(invoice: Invoice): Int {
+    var result = 0
+    for (o in invoice.orders) {
+        result += o.amount
+    }
+    return result
 }
 
 private fun recordDueDate(invoice: Invoice) {
