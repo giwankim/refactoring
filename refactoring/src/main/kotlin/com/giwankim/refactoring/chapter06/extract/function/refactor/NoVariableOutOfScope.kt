@@ -17,14 +17,18 @@ fun printOwing(invoice: Invoice) {
     }
 
     // record due data
-    val today = Clock.Companion.today()
+    val today = Clock.today()
     invoice.dueDate = today.plusDays(30)
 
     // print details
-    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locale.KOREA)
-    println("name: ${invoice.customer}")
-    println("amount: $outstanding")
-    println("due: ${formatter.format(invoice.dueDate)}")
+    fun printDetails() {
+        val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locale.KOREA)
+        println("name: ${invoice.customer}")
+        println("amount: $outstanding")
+        println("due: ${formatter.format(invoice.dueDate)}")
+    }
+
+    printDetails()
 }
 
 private fun printBanner() {
