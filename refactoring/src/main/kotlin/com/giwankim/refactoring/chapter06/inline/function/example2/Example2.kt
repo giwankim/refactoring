@@ -1,4 +1,4 @@
-package com.giwankim.refactoring.chapter06.inline.function
+package com.giwankim.refactoring.chapter06.inline.function.example2
 
 fun reportLines(customer: Customer): List<List<String>> {
     val lines: MutableList<List<String>> = mutableListOf()

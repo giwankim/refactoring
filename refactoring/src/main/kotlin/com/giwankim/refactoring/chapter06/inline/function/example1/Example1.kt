@@ -1,4 +1,4 @@
-package com.giwankim.refactoring.chapter06.inline.function
+package com.giwankim.refactoring.chapter06.inline.function.example1
 
 fun rating(driver: Driver) = if (moreThanFiveLateDeliveries(driver)) 2 else 1
 

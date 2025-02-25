@@ -1,6 +1,6 @@
-package com.giwankim.refactoring.chapter06.inline.function.move.statements.to.callers
+package com.giwankim.refactoring.chapter06.inline.function.example2.refactor
 
-import com.giwankim.refactoring.chapter06.inline.function.Customer
+import com.giwankim.refactoring.chapter06.inline.function.example2.Customer
 
 fun reportLines(customer: Customer): List<List<String>> {
     val lines: MutableList<List<String>> = mutableListOf()
