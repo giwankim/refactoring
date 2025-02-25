@@ -16,11 +16,13 @@ fun printOwing(invoice: Invoice) {
         outstanding += o.amount
     }
 
-    // record due data
+    recordDueDate(invoice)
+    printDetails(invoice, outstanding)
+}
+
+private fun recordDueDate(invoice: Invoice) {
     val today = Clock.today()
     invoice.dueDate = today.plusDays(30)
-
-    printDetails(invoice, outstanding)
 }
 
 private fun printDetails(
