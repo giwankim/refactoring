@@ -1,6 +1,5 @@
 package com.giwankim.refactoring.chapter06.extract.function
 
-import com.giwankim.refactoring.chapter06.extract.function.refactor.printOwing
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
