@@ -1,6 +1,7 @@
-package com.giwankim.refactoring.chapter06.extract.function
+package com.giwankim.refactoring.chapter06.extract.function.refactor
 
-import com.giwankim.refactoring.chapter06.extract.function.refactor.printOwing
+import com.giwankim.refactoring.chapter06.extract.function.Clock
+import com.giwankim.refactoring.chapter06.extract.function.Invoice
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
@@ -8,9 +9,7 @@ import java.util.Locale
 fun printOwing(invoice: Invoice) {
     var outstanding = 0
 
-    println("***********************")
-    println("**** Customer Owes ****")
-    println("***********************")
+    printBanner()
 
     // calculate outstanding
     for (o in invoice.orders) {
@@ -18,7 +17,7 @@ fun printOwing(invoice: Invoice) {
     }
 
     // record due data
-    val today = Clock.today()
+    val today = Clock.Companion.today()
     invoice.dueDate = today.plusDays(30)
 
     // print details
@@ -28,7 +27,8 @@ fun printOwing(invoice: Invoice) {
     println("due: ${formatter.format(invoice.dueDate)}")
 }
 
-fun main() {
-    val invoice = Invoice(emptyList(), Clock.today(), "john")
-    printOwing(invoice)
+private fun printBanner() {
+    println("***********************")
+    println("**** Customer Owes ****")
+    println("***********************")
 }
