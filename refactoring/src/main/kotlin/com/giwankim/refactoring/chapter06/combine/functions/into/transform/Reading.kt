@@ -10,5 +10,6 @@ data class Reading(
     val month: Month,
     val year: Year,
 ) {
-    var baseCharge by Delegates.notNull<Double>()
+    var baseCharge: Double by Delegates.notNull()
+    var taxableCharge: Double by Delegates.notNull()
 }
