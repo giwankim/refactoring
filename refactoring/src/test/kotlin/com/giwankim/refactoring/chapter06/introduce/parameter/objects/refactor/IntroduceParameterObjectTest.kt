@@ -22,7 +22,7 @@ class IntroduceParameterObjectTest :
                 )
             val range = NumberRange(50, 55)
 
-            val readings = readingsOutsideRange(station, 50, 55, range)
+            val readings = readingsOutsideRange(station, 50, range)
 
             readings.map(Reading::temp) shouldContainExactlyInAnyOrder listOf(51, 53, 53)
         }
