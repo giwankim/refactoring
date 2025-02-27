@@ -5,4 +5,5 @@ import com.giwankim.refactoring.chapter06.combine.functions.into.classes.acquire
 fun main() {
     val reading = acquireReading()
     val basicChargeAmount = reading.baseCharge
+    val taxableCharge = reading.taxableCharge
 }
