@@ -10,8 +10,7 @@ fun priceOrder(
     shippingMethod: ShippingMethod,
 ): BigDecimal {
     val priceData = calculatePricingData(product, quantity)
-    val price = applyShipping(priceData, shippingMethod)
-    return price
+    return applyShipping(priceData, shippingMethod)
 }
 
 private fun calculatePricingData(
@@ -23,8 +22,7 @@ private fun calculatePricingData(
         (quantity - product.discountThreshold)
             .coerceAtLeast(0)
             .toBigDecimal() * product.basePrice * product.discountRate.toBigDecimal()
-    val priceData = PriceData(basePrice = basePrice, quantity = quantity, discount = discount)
-    return priceData
+    return PriceData(basePrice = basePrice, quantity = quantity, discount = discount)
 }
 
 private fun applyShipping(
@@ -34,6 +32,5 @@ private fun applyShipping(
     val shippingPerCase =
         if (priceData.basePrice > shippingMethod.discountThreshold) shippingMethod.discountedFee else shippingMethod.feePerCase
     val shippingCost = priceData.quantity.toBigDecimal() * shippingPerCase
-    val price = priceData.basePrice - priceData.discount + shippingCost
-    return price
+    return priceData.basePrice - priceData.discount + shippingCost
 }
