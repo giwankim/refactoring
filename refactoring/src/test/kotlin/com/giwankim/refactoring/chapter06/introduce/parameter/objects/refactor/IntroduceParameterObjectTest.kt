@@ -24,6 +24,6 @@ class IntroduceParameterObjectTest :
 
             val readings = readingsOutsideRange(station, range)
 
-            readings.map(Reading::temp) shouldContainExactlyInAnyOrder listOf(51, 53, 53)
+            readings.map(Reading::temp) shouldContainExactlyInAnyOrder listOf(47, 58)
         }
     })

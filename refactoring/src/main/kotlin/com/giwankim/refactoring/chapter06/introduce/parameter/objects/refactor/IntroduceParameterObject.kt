@@ -6,4 +6,4 @@ import com.giwankim.refactoring.chapter06.introduce.parameter.objects.Station
 fun readingsOutsideRange(
     station: Station,
     range: NumberRange,
-): List<Reading> = station.readings.filter { it.temp in range.min..range.max }
+): List<Reading> = station.readings.filter { !range.contains(it.temp) }
