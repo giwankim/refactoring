@@ -12,7 +12,7 @@ class EncapsulateRecordTest :
         }
 
         test("setter") {
-            getRawDataOfOrganization()["name"] = "New Acme Gooseberries"
-            getRawDataOfOrganization()["name"] shouldBe "New Acme Gooseberries"
+            organization().name = "New Acme Gooseberries"
+            organization().name shouldBe "New Acme Gooseberries"
         }
     })
