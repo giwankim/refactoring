@@ -5,11 +5,8 @@ val organization = Organization(mutableMapOf("name" to "Acme Gooseberries", "cou
 fun organization(): Organization = organization
 
 class Organization(
-    val data: MutableMap<String, String>,
+    var name: String,
+    var country: String,
 ) {
-    var name: String
-        get() = data["name"] ?: ""
-        set(value) {
-            data["name"] = value
-        }
+    constructor(data: MutableMap<String, String>) : this(data.getValue("name"), data.getValue("country"))
 }
