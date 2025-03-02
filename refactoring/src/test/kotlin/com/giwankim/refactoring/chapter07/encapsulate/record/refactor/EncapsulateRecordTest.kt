@@ -7,7 +7,7 @@ class EncapsulateRecordTest :
     FunSpec({
         test("getter") {
             var result = ""
-            result += "<h1>${getRawDataOfOrganization()["name"]}</h1>"
+            result += "<h1>${organization().name}</h1>"
             result shouldBe "<h1>Acme Gooseberries</h1>"
         }
 
