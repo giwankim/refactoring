@@ -1,8 +1,8 @@
 package com.giwankim.learn
 
-import com.giwankim.refactoring.chapter01.Invoice
-import com.giwankim.refactoring.chapter01.Performance
-import com.giwankim.refactoring.chapter01.Play
+import com.giwankim.refactoring.ch01.Invoice
+import com.giwankim.refactoring.ch01.Performance
+import com.giwankim.refactoring.ch01.Play
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json
