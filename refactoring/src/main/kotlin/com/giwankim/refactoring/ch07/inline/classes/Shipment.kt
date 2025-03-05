@@ -11,4 +11,10 @@ class Shipment(
         set(value) {
             trackingInformation.shippingCompany = value
         }
+
+    var trackingNumber: String
+        get() = trackingInformation.trackingNumber
+        set(value) {
+            trackingInformation.trackingNumber = value
+        }
 }

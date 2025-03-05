@@ -15,4 +15,10 @@ class ShipmentTest :
             shipment.shippingCompany = "new vendor"
             shipment.shippingCompany shouldBe "new vendor"
         }
+
+        test("set tracking number") {
+            val shipment = Shipment(TrackingInformation("moby dick", "#white-whale"))
+            shipment.trackingNumber = "#another-tracking-number"
+            shipment.trackingNumber shouldBe "#another-tracking-number"
+        }
     })
