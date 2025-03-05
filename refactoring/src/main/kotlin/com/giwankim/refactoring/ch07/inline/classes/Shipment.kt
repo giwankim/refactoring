@@ -1,20 +1,9 @@
 package com.giwankim.refactoring.ch07.inline.classes
 
 class Shipment(
-    var trackingInformation: TrackingInformation,
+    var shippingCompany: String,
+    var trackingNumber: String,
 ) {
     val trackingInfo: String
         get() = "$shippingCompany: $trackingNumber"
-
-    var shippingCompany: String
-        get() = trackingInformation.shippingCompany
-        set(value) {
-            trackingInformation.shippingCompany = value
-        }
-
-    var trackingNumber: String
-        get() = trackingInformation.trackingNumber
-        set(value) {
-            trackingInformation.trackingNumber = value
-        }
 }
