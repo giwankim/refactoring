@@ -6,7 +6,6 @@ class Order(
 ) {
     val price: Double
         get() {
-            val basePrice = this.basePrice
             var discountFactor = 0.98
             if (basePrice > 1000) {
                 discountFactor -= 0.03
