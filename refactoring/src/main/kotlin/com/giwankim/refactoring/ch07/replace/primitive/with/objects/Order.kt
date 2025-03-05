@@ -8,6 +8,7 @@ class Order(
         set(value) {
             _priority = Priority(value)
         }
+    val priorityString: String get() = _priority.toString()
 }
 
-fun List<Order>.highPriorityCount(): Int = this.count { it.priority == "high" || it.priority == "rush" }
+fun List<Order>.highPriorityCount(): Int = this.count { it.priorityString == "high" || it.priorityString == "rush" }
