@@ -8,6 +8,6 @@ class PersonTest :
         test("get manager") {
             val department = Department().apply { assignManager(Person("manager", this)) }
             val person = Person("worker", department)
-            person.manager?.name shouldBe "manager"
+            person.department.manager?.name shouldBe "manager"
         }
     })
