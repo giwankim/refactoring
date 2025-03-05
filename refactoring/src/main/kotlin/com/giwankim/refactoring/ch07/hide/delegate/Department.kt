@@ -5,6 +5,6 @@ class Department(
     var manager: Person,
 ) {
     init {
-        manager.department = this
+        manager.assignDepartment(this)
     }
 }
