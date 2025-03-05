@@ -1,9 +1,9 @@
 package com.giwankim.refactoring.ch07.extract.classes
 
 class TelephoneNumber(
-    var officeAreaCode: String,
-    var officeNumber: String,
+    var areaCode: String,
+    var number: String,
 ) {
     val telephoneNumber: String
-        get() = "($officeAreaCode) $officeNumber"
+        get() = "($areaCode) $number"
 }
