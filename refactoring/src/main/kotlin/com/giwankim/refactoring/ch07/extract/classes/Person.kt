@@ -5,17 +5,20 @@ class Person(
     officeAreaCode: String,
     officeNumber: String,
 ) {
-    val telephoneNumber = TelephoneNumber(officeAreaCode = officeAreaCode, officeNumber = officeNumber)
+    private val _telephoneNumber = TelephoneNumber(officeAreaCode = officeAreaCode, officeNumber = officeNumber)
+
+    val telephoneNumber: String
+        get() = _telephoneNumber.telephoneNumber
 
     var officeAreaCode: String
-        get() = telephoneNumber.officeAreaCode
+        get() = _telephoneNumber.officeAreaCode
         set(value) {
-            telephoneNumber.officeAreaCode = value
+            _telephoneNumber.officeAreaCode = value
         }
 
     var officeNumber: String
-        get() = telephoneNumber.officeNumber
+        get() = _telephoneNumber.officeNumber
         set(value) {
-            telephoneNumber.officeNumber = value
+            _telephoneNumber.officeNumber = value
         }
 }

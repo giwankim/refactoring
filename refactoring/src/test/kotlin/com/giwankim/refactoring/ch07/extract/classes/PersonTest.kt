@@ -14,6 +14,11 @@ class PersonTest :
         test("office number") {
             val person = Person(name = "John", officeAreaCode = "010", officeNumber = "1234-5678")
             person.officeNumber = "5678-1234"
-            person.telephoneNumber.officeNumber shouldBe "5678-1234"
+            person.officeNumber shouldBe "5678-1234"
+        }
+
+        test("telephone number") {
+            val person = Person(name = "John", officeAreaCode = "010", officeNumber = "1234-5678")
+            person.telephoneNumber shouldBe "(010) 1234-5678"
         }
     })
