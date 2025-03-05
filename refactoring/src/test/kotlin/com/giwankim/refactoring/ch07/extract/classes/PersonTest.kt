@@ -11,9 +11,9 @@ class PersonTest :
             person.officeAreaCode shouldBe "011"
         }
 
-        xtest("office number") {
+        test("office number") {
             val person = Person(name = "John", officeAreaCode = "010", officeNumber = "1234-5678")
-//            person.officeNumber = "5678"
-            person.telephoneNumber.officeNumber shouldBe "5678"
+            person.officeNumber = "5678-1234"
+            person.telephoneNumber.officeNumber shouldBe "5678-1234"
         }
     })

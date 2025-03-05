@@ -12,4 +12,10 @@ class Person(
         set(value) {
             telephoneNumber.officeAreaCode = value
         }
+
+    var officeNumber: String
+        get() = telephoneNumber.officeNumber
+        set(value) {
+            telephoneNumber.officeNumber = value
+        }
 }
