@@ -4,7 +4,7 @@ class Shipment(
     var trackingInformation: TrackingInformation,
 ) {
     val trackingInfo: String
-        get() = trackingInformation.display()
+        get() = "$shippingCompany: $trackingNumber"
 
     var shippingCompany: String
         get() = trackingInformation.shippingCompany
