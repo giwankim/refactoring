@@ -8,7 +8,7 @@ class Person(
     private val _telephoneNumber = TelephoneNumber(areaCode = officeAreaCode, number = officeNumber)
 
     val telephoneNumber: String
-        get() = _telephoneNumber.telephoneNumber
+        get() = _telephoneNumber.toString()
 
     var officeAreaCode: String
         get() = _telephoneNumber.areaCode
