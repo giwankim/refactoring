@@ -5,4 +5,10 @@ class Shipment(
 ) {
     val trackingInfo: String
         get() = trackingInformation.display()
+
+    var shippingCompany: String
+        get() = trackingInformation.shippingCompany
+        set(value) {
+            trackingInformation.shippingCompany = value
+        }
 }
