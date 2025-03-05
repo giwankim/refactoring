@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 class OrderTest :
     FunSpec({
         test("high priority count") {
-            val orders = listOf(Order("high"), Order("low"), Order("rush"))
+            val orders = listOf(Order(Priority("high")), Order(Priority("low")), Order(Priority("rush")))
             orders.highPriorityCount() shouldBe 2
         }
     })
