@@ -6,11 +6,17 @@ class Order(
 ) {
     val price: Double
         get() {
+            var discountFactor = this.discountFactor
+            return basePrice * discountFactor
+        }
+
+    val discountFactor: Double
+        get() {
             var discountFactor = 0.98
             if (basePrice > 1000) {
                 discountFactor -= 0.03
             }
-            return basePrice * discountFactor
+            return discountFactor
         }
 
     val basePrice: Double
