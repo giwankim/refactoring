@@ -9,6 +9,6 @@ class PersonTest :
             val manager = Person("Uncle Bob")
             val department = Department("123", manager)
             val person = Person("Coder", department)
-            person.department?.manager?.name shouldBe "Uncle Bob"
+            person.manager?.name shouldBe "Uncle Bob"
         }
     })
