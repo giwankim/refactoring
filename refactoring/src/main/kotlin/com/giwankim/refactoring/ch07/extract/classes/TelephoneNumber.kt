@@ -1,6 +1,6 @@
 package com.giwankim.refactoring.ch07.extract.classes
 
-class TelephoneNumber(
+data class TelephoneNumber(
     var areaCode: String,
     var number: String,
 ) {
