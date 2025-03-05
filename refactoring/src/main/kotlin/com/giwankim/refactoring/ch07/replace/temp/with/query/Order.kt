@@ -6,7 +6,6 @@ class Order(
 ) {
     val price: Double
         get() {
-            var discountFactor = this.discountFactor
             return basePrice * discountFactor
         }
 
