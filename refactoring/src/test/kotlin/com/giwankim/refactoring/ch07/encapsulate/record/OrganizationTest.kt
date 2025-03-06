@@ -11,12 +11,12 @@ class OrganizationTest :
 
         test("read attribute") {
             var result = ""
-            result += "<h1>${getRawDataOfOrganization()["name"]}</h1>"
+            result += "<h1>${organization().name}</h1>"
             result shouldBe "<h1>Acme Gooseberries</h1>"
         }
 
         test("write attribute") {
-            getRawDataOfOrganization()["name"] = "New Acme Gooseberries"
-            getRawDataOfOrganization()["name"] shouldBe "New Acme Gooseberries"
+            organization().name = "New Acme Gooseberries"
+            organization().name shouldBe "New Acme Gooseberries"
         }
     })
