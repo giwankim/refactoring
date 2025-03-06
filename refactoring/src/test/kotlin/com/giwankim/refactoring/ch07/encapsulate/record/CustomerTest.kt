@@ -22,8 +22,8 @@ class CustomerTest :
         }
 
         test("update customer data") {
-            customerData[1920L]!!.usages[2016]!![1] = 60
-            customerData[1920L]?.usages[2016]?.get(1) shouldBe 60
+            getRawDataOfCustomers()[1920L]!!.usages[2016]!![1] = 60
+            getRawDataOfCustomers()[1920L]?.usages[2016]?.get(1) shouldBe 60
         }
 
         test("compare usage") {
