@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 class OrganizationTest :
     FunSpec({
         afterTest {
-            organization = mutableMapOf("name" to "Acme Gooseberries", "country" to "GB")
+            organization = Organization(mutableMapOf("name" to "Acme Gooseberries", "country" to "GB"))
         }
 
         test("read attribute") {
