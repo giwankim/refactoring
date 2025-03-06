@@ -7,17 +7,19 @@ class CustomerTest :
     FunSpec({
         beforeTest {
             customerData =
-                mutableMapOf(
-                    1920L to
-                        Customer(
-                            "martin",
-                            1920L,
-                            mutableMapOf(
-                                2016 to mutableMapOf(1 to 50, 2 to 55),
-                                2015 to mutableMapOf(1 to 70, 2 to 63),
+                CustomerData(
+                    mutableMapOf(
+                        1920L to
+                            Customer(
+                                "martin",
+                                1920L,
+                                mutableMapOf(
+                                    2016 to mutableMapOf(1 to 50, 2 to 55),
+                                    2015 to mutableMapOf(1 to 70, 2 to 63),
+                                ),
                             ),
-                        ),
-                    38673L to Customer("neal", 38673L, mutableMapOf()),
+                        38673L to Customer("neal", 38673L, mutableMapOf()),
+                    ),
                 )
         }
 

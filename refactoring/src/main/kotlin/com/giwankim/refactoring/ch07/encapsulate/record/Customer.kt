@@ -6,24 +6,32 @@ data class Customer(
     val usages: MutableMap<Int, MutableMap<Int, Int>>,
 )
 
-var customerData: MutableMap<Long, Customer> =
-    mutableMapOf(
-        1920L to
-            Customer(
-                "martin",
-                1920L,
-                mutableMapOf(
-                    2016 to mutableMapOf(1 to 50, 2 to 55),
-                    2015 to mutableMapOf(1 to 70, 2 to 63),
+data class CustomerData(
+    val data: MutableMap<Long, Customer>,
+)
+
+var customerData =
+    CustomerData(
+        mutableMapOf(
+            1920L to
+                Customer(
+                    "martin",
+                    1920L,
+                    mutableMapOf(
+                        2016 to mutableMapOf(1 to 50, 2 to 55),
+                        2015 to mutableMapOf(1 to 70, 2 to 63),
+                    ),
                 ),
-            ),
-        38673L to Customer("neal", 38673L, mutableMapOf()),
+            38673L to Customer("neal", 38673L, mutableMapOf()),
+        ),
     )
 
-fun getRawDataOfCustomers(): MutableMap<Long, Customer> = customerData
+fun customerData(): CustomerData = customerData
+
+fun getRawDataOfCustomers(): MutableMap<Long, Customer> = customerData.data
 
 fun setRawDataOfCustomers(arg: MutableMap<Long, Customer>) {
-    customerData = arg
+    customerData = CustomerData(arg)
 }
 
 data class UsageComparisonResult(
