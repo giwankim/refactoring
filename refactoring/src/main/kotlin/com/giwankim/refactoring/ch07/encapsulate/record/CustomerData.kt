@@ -9,6 +9,9 @@ data class CustomerDatum(
 data class CustomerData(
     val data: MutableMap<Long, CustomerDatum>,
 ) {
+    val rawData: Map<Long, CustomerDatum>
+        get() = data.toMap()
+
     fun setUsage(
         customerID: Long,
         year: Int,
@@ -17,6 +20,12 @@ data class CustomerData(
     ) {
         data[customerID]!!.usages[year]!![month] = amount
     }
+
+    fun usage(
+        customerID: Long,
+        year: Int,
+        month: Int,
+    ): Int = data[customerID]!!.usages[year]!![month]!!
 }
 
 var customerData =
@@ -37,7 +46,7 @@ var customerData =
 
 fun customerData(): CustomerData = customerData
 
-fun getRawDataOfCustomers(): MutableMap<Long, CustomerDatum> = customerData.data
+fun getRawDataOfCustomers(): Map<Long, CustomerDatum> = customerData.data.toMap()
 
 fun setRawDataOfCustomers(arg: MutableMap<Long, CustomerDatum>) {
     customerData = CustomerData(arg)
@@ -53,7 +62,7 @@ fun compareUsage(
     laterYear: Int,
     month: Int,
 ): UsageComparisonResult {
-    val later = getRawDataOfCustomers()[customerID]!!.usages[laterYear]!!.getValue(month)
-    val earlier = getRawDataOfCustomers()[customerID]!!.usages[laterYear - 1]!!.getValue(month)
+    val later = customerData().usage(customerID, laterYear, month)
+    val earlier = customerData().rawData[customerID]!!.usages[laterYear - 1]!![month]!!
     return UsageComparisonResult(laterAmount = later, change = later - earlier)
 }
