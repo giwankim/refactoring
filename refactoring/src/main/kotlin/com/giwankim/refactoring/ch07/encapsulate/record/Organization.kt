@@ -1,15 +1,10 @@
 package com.giwankim.refactoring.ch07.encapsulate.record
 
 class Organization(
-    val data: MutableMap<String, String>,
-) {
-    var name: String
-        get() = data.getValue("name")
-        set(value) {
-            data["name"] = value
-        }
-}
+    var name: String,
+    val country: String,
+)
 
-var organization = Organization(mutableMapOf("name" to "Acme Gooseberries", "country" to "GB"))
+var organization = Organization(name = "Acme Gooseberries", country = "GB")
 
 fun organization(): Organization = organization
