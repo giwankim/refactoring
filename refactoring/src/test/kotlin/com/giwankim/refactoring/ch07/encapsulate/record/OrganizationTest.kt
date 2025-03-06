@@ -5,20 +5,18 @@ import io.kotest.matchers.shouldBe
 
 class OrganizationTest :
     FunSpec({
-        lateinit var sut: MutableMap<String, String>
-
-        beforeTest {
-            sut = organization.toMutableMap()
+        afterTest {
+            organization = mutableMapOf("name" to "Acme Gooseberries", "country" to "GB")
         }
 
         test("read attribute") {
             var result = ""
-            result += "<h1>${sut["name"]}</h1>"
+            result += "<h1>${getRawDataOfOrganization()["name"]}</h1>"
             result shouldBe "<h1>Acme Gooseberries</h1>"
         }
 
         test("write attribute") {
-            sut["name"] = "New Acme Gooseberries"
-            sut["name"] shouldBe "New Acme Gooseberries"
+            getRawDataOfOrganization()["name"] = "New Acme Gooseberries"
+            getRawDataOfOrganization()["name"] shouldBe "New Acme Gooseberries"
         }
     })

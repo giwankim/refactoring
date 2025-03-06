@@ -1,3 +1,5 @@
 package com.giwankim.refactoring.ch07.encapsulate.record
 
-val organization = mutableMapOf("name" to "Acme Gooseberries", "country" to "GB")
+var organization = mutableMapOf("name" to "Acme Gooseberries", "country" to "GB")
+
+fun getRawDataOfOrganization(): MutableMap<String, String> = organization
