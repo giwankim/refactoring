@@ -24,7 +24,7 @@ class CustomerTest :
         }
 
         test("update customer data") {
-            getRawDataOfCustomers()[1920L]!!.usages[2016]!![1] = 60
+            setUsage(1920L, 2016, 1, 60)
             getRawDataOfCustomers()[1920L]?.usages[2016]?.get(1) shouldBe 60
         }
 

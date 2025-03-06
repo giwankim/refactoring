@@ -48,3 +48,12 @@ fun compareUsage(
     val earlier = getRawDataOfCustomers()[customerID]!!.usages[laterYear - 1]!!.getValue(month)
     return UsageComparisonResult(laterAmount = later, change = later - earlier)
 }
+
+fun setUsage(
+    customerID: Long,
+    year: Int,
+    month: Int,
+    amount: Int,
+) {
+    getRawDataOfCustomers()[customerID]!!.usages[year]!![month] = amount
+}
