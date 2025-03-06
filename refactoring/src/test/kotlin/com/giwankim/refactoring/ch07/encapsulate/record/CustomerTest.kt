@@ -10,7 +10,7 @@ class CustomerTest :
                 CustomerData(
                     mutableMapOf(
                         1920L to
-                            Customer(
+                            CustomerDatum(
                                 "martin",
                                 1920L,
                                 mutableMapOf(
@@ -18,13 +18,13 @@ class CustomerTest :
                                     2015 to mutableMapOf(1 to 70, 2 to 63),
                                 ),
                             ),
-                        38673L to Customer("neal", 38673L, mutableMapOf()),
+                        38673L to CustomerDatum("neal", 38673L, mutableMapOf()),
                     ),
                 )
         }
 
         test("update customer data") {
-            setUsage(1920L, 2016, 1, 60)
+            customerData().setUsage(1920L, 2016, 1, 60)
             getRawDataOfCustomers()[1920L]?.usages[2016]?.get(1) shouldBe 60
         }
 

@@ -1,20 +1,29 @@
 package com.giwankim.refactoring.ch07.encapsulate.record
 
-data class Customer(
+data class CustomerDatum(
     val name: String,
     val id: Long,
     val usages: MutableMap<Int, MutableMap<Int, Int>>,
 )
 
 data class CustomerData(
-    val data: MutableMap<Long, Customer>,
-)
+    val data: MutableMap<Long, CustomerDatum>,
+) {
+    fun setUsage(
+        customerID: Long,
+        year: Int,
+        month: Int,
+        amount: Int,
+    ) {
+        data[customerID]!!.usages[year]!![month] = amount
+    }
+}
 
 var customerData =
     CustomerData(
         mutableMapOf(
             1920L to
-                Customer(
+                CustomerDatum(
                     "martin",
                     1920L,
                     mutableMapOf(
@@ -22,15 +31,15 @@ var customerData =
                         2015 to mutableMapOf(1 to 70, 2 to 63),
                     ),
                 ),
-            38673L to Customer("neal", 38673L, mutableMapOf()),
+            38673L to CustomerDatum("neal", 38673L, mutableMapOf()),
         ),
     )
 
 fun customerData(): CustomerData = customerData
 
-fun getRawDataOfCustomers(): MutableMap<Long, Customer> = customerData.data
+fun getRawDataOfCustomers(): MutableMap<Long, CustomerDatum> = customerData.data
 
-fun setRawDataOfCustomers(arg: MutableMap<Long, Customer>) {
+fun setRawDataOfCustomers(arg: MutableMap<Long, CustomerDatum>) {
     customerData = CustomerData(arg)
 }
 
@@ -47,13 +56,4 @@ fun compareUsage(
     val later = getRawDataOfCustomers()[customerID]!!.usages[laterYear]!!.getValue(month)
     val earlier = getRawDataOfCustomers()[customerID]!!.usages[laterYear - 1]!!.getValue(month)
     return UsageComparisonResult(laterAmount = later, change = later - earlier)
-}
-
-fun setUsage(
-    customerID: Long,
-    year: Int,
-    month: Int,
-    amount: Int,
-) {
-    getRawDataOfCustomers()[customerID]!!.usages[year]!![month] = amount
 }
