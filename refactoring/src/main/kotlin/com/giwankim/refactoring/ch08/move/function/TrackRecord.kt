@@ -33,26 +33,25 @@ fun trackSummary(points: List<Point>): TrackSummary {
     return TrackSummary(totalTime, totalDistance(points), pace)
 }
 
-fun totalDistance(points: List<Point>): Double {
-    fun radians(degrees: Double): Double = degrees * Math.PI / 180
-
-    fun distance(
-        p1: Point,
-        p2: Point,
-    ): Double {
-        // haversine formula see http://www.movable-type.co.uk/scripts/latlong.html
-        val earthRadius = 3959 // in miles
-        val dLat = radians(p2.lat) - radians(p1.lat)
-        val dLon = radians(p2.lon) - radians(p1.lon)
-        val a =
-            sin(dLat / 2).pow(2) +
-                cos(radians(p1.lat)) * cos(radians(p2.lat)) *
-                sin(dLon / 2) * sin(dLon / 2)
-        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        return earthRadius * c
-    }
-
-    return points
+fun totalDistance(points: List<Point>): Double =
+    points
         .zipWithNext { p1, p2 -> distance(p1, p2) }
         .sum()
+
+fun distance(
+    p1: Point,
+    p2: Point,
+): Double {
+    // haversine formula see http://www.movable-type.co.uk/scripts/latlong.html
+    val earthRadius = 3959 // in miles
+    val dLat = radians(p2.lat) - radians(p1.lat)
+    val dLon = radians(p2.lon) - radians(p1.lon)
+    val a =
+        sin(dLat / 2).pow(2) +
+            cos(radians(p1.lat)) * cos(radians(p2.lat)) *
+            sin(dLon / 2) * sin(dLon / 2)
+    val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return earthRadius * c
 }
+
+fun radians(degrees: Double): Double = degrees * Math.PI / 180
