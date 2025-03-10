@@ -16,22 +16,6 @@ import java.time.Duration
 fun trackSummary(points: List<Point>): TrackSummary {
     fun radians(degrees: Double): Double = degrees * Math.PI / 180
 
-    fun distance(
-        p1: Point,
-        p2: Point,
-    ): Double {
-        // haversine formula see http://www.movable-type.co.uk/scripts/latlong.html
-        val earthRadius = 3959 // in miles
-        val dLat = radians(p2.lat) - radians(p1.lat)
-        val dLon = radians(p2.lon) - radians(p1.lon)
-        val a =
-            Math.pow(Math.sin(dLat / 2), 2.0) +
-                Math.cos(radians(p1.lat)) * Math.cos(radians(p2.lat)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2)
-        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-        return earthRadius * c
-    }
-
     fun calculateTime(): Duration {
         if (points.size < 2) {
             return Duration.ZERO
@@ -41,10 +25,26 @@ fun trackSummary(points: List<Point>): TrackSummary {
         return Duration.between(start, end)
     }
 
-    fun calculateDistance(): Double =
-        points
+    fun calculateDistance(): Double {
+        fun distance(
+            p1: Point,
+            p2: Point,
+        ): Double {
+            // haversine formula see http://www.movable-type.co.uk/scripts/latlong.html
+            val earthRadius = 3959 // in miles
+            val dLat = radians(p2.lat) - radians(p1.lat)
+            val dLon = radians(p2.lon) - radians(p1.lon)
+            val a =
+                Math.pow(Math.sin(dLat / 2), 2.0) +
+                    Math.cos(radians(p1.lat)) * Math.cos(radians(p2.lat)) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2)
+            val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+            return earthRadius * c
+        }
+        return points
             .zipWithNext { p1, p2 -> distance(p1, p2) }
             .sum()
+    }
 
     val totalTime = calculateTime()
     val totalDistance = calculateDistance()
