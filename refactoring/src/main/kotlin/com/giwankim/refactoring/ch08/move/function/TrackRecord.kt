@@ -47,9 +47,7 @@ fun trackSummary(points: List<Point>): TrackSummary {
             return earthRadius * c
         }
 
-        return points
-            .zipWithNext { p1, p2 -> distance(p1, p2) }
-            .sum()
+        return topCalculateDistance(points)
     }
 
     val totalTime = calculateTime()
