@@ -1,6 +1,11 @@
 package com.giwankim.refactoring.ch08.move.function
 
 import java.time.Duration
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * Calculates the total distance for a GPS track record.
@@ -14,8 +19,6 @@ import java.time.Duration
  * @return A summary containing distance, time, and pace information
  */
 fun trackSummary(points: List<Point>): TrackSummary {
-    fun radians(degrees: Double): Double = degrees * Math.PI / 180
-
     fun calculateTime(): Duration {
         if (points.size < 2) {
             return Duration.ZERO
@@ -26,6 +29,8 @@ fun trackSummary(points: List<Point>): TrackSummary {
     }
 
     fun calculateDistance(): Double {
+        fun radians(degrees: Double): Double = degrees * Math.PI / 180
+
         fun distance(
             p1: Point,
             p2: Point,
@@ -35,12 +40,13 @@ fun trackSummary(points: List<Point>): TrackSummary {
             val dLat = radians(p2.lat) - radians(p1.lat)
             val dLon = radians(p2.lon) - radians(p1.lon)
             val a =
-                Math.pow(Math.sin(dLat / 2), 2.0) +
-                    Math.cos(radians(p1.lat)) * Math.cos(radians(p2.lat)) *
-                    Math.sin(dLon / 2) * Math.sin(dLon / 2)
-            val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+                sin(dLat / 2).pow(2) +
+                    cos(radians(p1.lat)) * cos(radians(p2.lat)) *
+                    sin(dLon / 2) * sin(dLon / 2)
+            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
             return earthRadius * c
         }
+
         return points
             .zipWithNext { p1, p2 -> distance(p1, p2) }
             .sum()
