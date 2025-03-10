@@ -12,15 +12,5 @@ class Account(
         return result
     }
 
-    fun overdraftCharge(): Double {
-        if (this.type.isPremium) {
-            val baseCharge = 10.0
-            return if (daysOverdrawn <= 7) {
-                baseCharge
-            } else {
-                baseCharge + (daysOverdrawn - 7) * 0.85
-            }
-        }
-        return daysOverdrawn * 1.75
-    }
+    fun overdraftCharge(): Double = type.overdraftCharge(daysOverdrawn)
 }
