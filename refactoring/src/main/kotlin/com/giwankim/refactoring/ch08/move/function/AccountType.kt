@@ -6,15 +6,15 @@ enum class AccountType(
     PREMIUM(true),
     NORMAL(false), ;
 
-    fun overdraftCharge(daysOverdrawn: Int): Double {
+    fun overdraftCharge(account: Account): Double {
         if (isPremium) {
             val baseCharge = 10.0
-            return if (daysOverdrawn <= 7) {
+            return if (account.daysOverdrawn <= 7) {
                 baseCharge
             } else {
-                baseCharge + (daysOverdrawn - 7) * 0.85
+                baseCharge + (account.daysOverdrawn - 7) * 0.85
             }
         }
-        return daysOverdrawn * 1.75
+        return account.daysOverdrawn * 1.75
     }
 }
