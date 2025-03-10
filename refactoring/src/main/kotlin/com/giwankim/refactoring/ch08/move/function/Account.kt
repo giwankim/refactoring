@@ -7,10 +7,8 @@ class Account(
     fun backCharge(): Double {
         var result = 4.5
         if (daysOverdrawn > 0) {
-            result += overdraftCharge()
+            result += type.overdraftCharge(daysOverdrawn)
         }
         return result
     }
-
-    fun overdraftCharge(): Double = type.overdraftCharge(daysOverdrawn)
 }
