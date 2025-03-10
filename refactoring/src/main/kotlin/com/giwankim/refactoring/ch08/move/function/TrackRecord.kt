@@ -28,10 +28,8 @@ fun trackSummary(points: List<Point>): TrackSummary {
         return Duration.between(start, end)
     }
 
-    fun calculateDistance(): Double = topCalculateDistance(points)
-
     val totalTime = calculateTime()
-    val totalDistance = calculateDistance()
+    val totalDistance = topCalculateDistance(points)
     val pace = totalTime.toMinutes() / 60.0 / totalDistance
     return TrackSummary(totalTime, totalDistance, pace)
 }
