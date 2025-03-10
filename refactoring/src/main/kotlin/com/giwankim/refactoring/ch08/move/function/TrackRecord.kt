@@ -29,12 +29,12 @@ fun trackSummary(points: List<Point>): TrackSummary {
     }
 
     val totalTime = calculateTime()
-    val totalDistance = topCalculateDistance(points)
+    val totalDistance = totalDistance(points)
     val pace = totalTime.toMinutes() / 60.0 / totalDistance
     return TrackSummary(totalTime, totalDistance, pace)
 }
 
-fun topCalculateDistance(points: List<Point>): Double {
+fun totalDistance(points: List<Point>): Double {
     fun radians(degrees: Double): Double = degrees * Math.PI / 180
 
     fun distance(
