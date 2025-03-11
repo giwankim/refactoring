@@ -1,9 +1,12 @@
 package com.giwankim.refactoring.ch08.split.loop
 
 fun process(people: List<Person>): String {
-    var totalSalary = 0
-    for (p in people) {
-        totalSalary += p.salary
+    fun totalSalary(): Int {
+        var totalSalary = 0
+        for (p in people) {
+            totalSalary += p.salary
+        }
+        return totalSalary
     }
 
     var youngest = if (people[0] != null) people[0].age else Int.MAX_VALUE
@@ -13,5 +16,6 @@ fun process(people: List<Person>): String {
         }
     }
 
+    var totalSalary = totalSalary()
     return "youngestAge: $youngest, total salary: $totalSalary"
 }
