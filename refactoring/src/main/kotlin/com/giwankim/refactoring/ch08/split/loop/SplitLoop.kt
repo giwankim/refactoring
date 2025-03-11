@@ -16,6 +16,5 @@ fun process(people: List<Person>): String {
         }
     }
 
-    var totalSalary = totalSalary()
-    return "youngestAge: $youngest, total salary: $totalSalary"
+    return "youngestAge: $youngest, total salary: ${totalSalary()}"
 }
