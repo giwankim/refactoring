@@ -9,9 +9,9 @@ fun acquireData(input: String): List<Office> {
             .filter { it.isNotBlank() }
             .map { it.split(",") }
             .filter { it[1].trim() == "India" }
+            .map { Office(city = it[0].trim(), phone = it[2].trim()) }
     for (line in loopItems) {
-        val record = line
-        result.add(Office(city = record[0].trim(), phone = record[2].trim()))
+        result.add(line)
     }
     return result
 }
