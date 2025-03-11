@@ -12,7 +12,7 @@ fun renderPerson(
     val result = StringBuilder()
     result.appendLine("<p>${person.name}</p>")
     result.appendLine(renderPhoto(person.photo))
-    result.appendLine(zznew(person.photo))
+    result.appendLine(emitPhotoData(person.photo))
     return result.toString()
 }
 
@@ -21,11 +21,11 @@ fun renderPhoto(photo: Photo): String = "🐶"
 fun photoDiv(photo: Photo): String =
     listOf(
         "<div>",
-        zznew(photo),
+        emitPhotoData(photo),
         "</div>",
     ).joinToString("\n")
 
-fun zznew(photo: Photo): String {
+fun emitPhotoData(photo: Photo): String {
     val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locale.KOREA)
     return listOf(
         "<p>title: ${photo.title}</p>",
