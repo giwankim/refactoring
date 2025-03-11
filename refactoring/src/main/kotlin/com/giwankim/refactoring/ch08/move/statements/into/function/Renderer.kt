@@ -25,16 +25,11 @@ fun photoDiv(photo: Photo): String =
         "</div>",
     ).joinToString("\n")
 
-fun zznew(photo: Photo) =
-    listOf(
-        "<p>title: ${photo.title}</p>",
-        emitPhotoData(photo),
-    ).joinToString("\n")
-
-fun emitPhotoData(photo: Photo): String {
-    val result = StringBuilder()
-    result.appendLine("<p>location: ${photo.location}</p>")
+fun zznew(photo: Photo): String {
     val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locale.KOREA)
-    result.append("<p>date: ${photo.date.format(formatter)}</p>")
-    return result.toString()
+    return listOf(
+        "<p>title: ${photo.title}</p>",
+        "<p>location: ${photo.location}</p>",
+        "<p>date: ${photo.date.format(formatter)}</p>",
+    ).joinToString("\n")
 }
