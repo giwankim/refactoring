@@ -4,4 +4,8 @@ class Account(
     val number: Long,
     val type: AccountType,
     val interestRate: Double,
-)
+) {
+    init {
+        assert(interestRate == type.interestRate) { "Interest rate mismatch" }
+    }
+}
