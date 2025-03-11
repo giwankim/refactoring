@@ -22,10 +22,15 @@ fun renderPhoto(photo: Photo): String = "🐶"
 fun photoDiv(photo: Photo): String =
     listOf(
         "<div>",
+        zznew(photo),
+        "</div>",
+    ).joinToString("\n")
+
+fun zznew(photo: Photo) =
+    listOf(
         "<p>title: ${photo.title}</p>",
         emitPhotoData(photo),
-        "</div>",
-    ).joinToString(separator = "\n")
+    ).joinToString("\n")
 
 fun emitPhotoData(photo: Photo): String {
     val result = StringBuilder()
