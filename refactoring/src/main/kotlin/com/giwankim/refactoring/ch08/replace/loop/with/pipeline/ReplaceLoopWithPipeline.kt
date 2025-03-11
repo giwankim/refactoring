@@ -2,14 +2,9 @@ package com.giwankim.refactoring.ch08.replace.loop.with.pipeline
 
 fun acquireData(input: String): List<Office> {
     val lines = input.lines()
-    var firstLine = true
     val result: MutableList<Office> = mutableListOf()
-    val loopItems = lines
+    val loopItems = lines.drop(1)
     for (line in loopItems) {
-        if (firstLine) {
-            firstLine = false
-            continue
-        }
         if (line.isBlank()) {
             continue
         }
