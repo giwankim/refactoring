@@ -12,8 +12,7 @@ fun renderPerson(
     val result = StringBuilder()
     result.appendLine("<p>${person.name}</p>")
     result.appendLine(renderPhoto(person.photo))
-    result.appendLine("<p>title: ${person.photo.title}</p>")
-    result.appendLine(emitPhotoData(person.photo))
+    result.appendLine(zznew(person.photo))
     return result.toString()
 }
 
