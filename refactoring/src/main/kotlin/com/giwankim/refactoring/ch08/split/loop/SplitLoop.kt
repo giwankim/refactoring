@@ -9,12 +9,15 @@ fun process(people: List<Person>): String {
         return totalSalary
     }
 
-    var youngest = if (people[0] != null) people[0].age else Int.MAX_VALUE
-    for (p in people) {
-        if (p.age < youngest) {
-            youngest = p.age
+    fun youngestAge(): Int {
+        var youngest = if (people[0] != null) people[0].age else Int.MAX_VALUE
+        for (p in people) {
+            if (p.age < youngest) {
+                youngest = p.age
+            }
         }
+        return youngest
     }
 
-    return "youngestAge: $youngest, total salary: ${totalSalary()}"
+    return "youngestAge: ${youngestAge()}, total salary: ${totalSalary()}"
 }
