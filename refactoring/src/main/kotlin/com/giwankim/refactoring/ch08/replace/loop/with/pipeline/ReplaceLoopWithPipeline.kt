@@ -8,11 +8,10 @@ fun acquireData(input: String): List<Office> {
             .drop(1)
             .filter { it.isNotBlank() }
             .map { it.split(",") }
+            .filter { it[1].trim() == "India" }
     for (line in loopItems) {
         val record = line
-        if (record[1].trim() == "India") {
-            result.add(Office(city = record[0].trim(), phone = record[2].trim()))
-        }
+        result.add(Office(city = record[0].trim(), phone = record[2].trim()))
     }
     return result
 }
