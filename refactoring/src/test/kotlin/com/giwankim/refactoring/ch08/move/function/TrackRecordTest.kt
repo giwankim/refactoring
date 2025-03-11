@@ -13,9 +13,12 @@ class TrackRecordTest :
             val startTime = Instant.parse("2024-03-10T10:00:00Z")
             val points =
                 listOf(
-                    Point(37.7749, -122.4194, startTime), // San Francisco (start)
-                    Point(37.8044, -122.2712, startTime.plusSeconds(600)), // Oakland after 10 minutes
-                    Point(37.8715, -122.2730, startTime.plusSeconds(1200)), // Berkeley after 20 minutes
+                    // San Francisco (start)
+                    Point(37.7749, -122.4194, startTime),
+                    // Oakland after 10 minutes
+                    Point(37.8044, -122.2712, startTime.plusSeconds(600)),
+                    // Berkeley after 20 minutes
+                    Point(37.8715, -122.2730, startTime.plusSeconds(1200)),
                 )
 
             val summary = trackSummary(points)
