@@ -4,7 +4,8 @@ fun acquireData(input: String): List<Office> {
     val lines = input.lines()
     var firstLine = true
     val result: MutableList<Office> = mutableListOf()
-    for (line in lines) {
+    val loopItems = lines
+    for (line in loopItems) {
         if (firstLine) {
             firstLine = false
             continue
