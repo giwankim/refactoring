@@ -12,7 +12,7 @@ fun renderPerson(
 ) {
     outStream.println("<p>${person.name}</p>")
     renderPhoto(outStream, person.photo)
-    zztmp(outStream, person.photo)
+    emitPhotoData(outStream, person.photo)
     outStream.println("<p>location: ${person.photo.location}</p>")
 }
 
@@ -24,13 +24,13 @@ fun listRecentPhotos(
         .filter { it.date.isAfter(recentDateCutoff()) }
         .forEach {
             outStream.println("<div>")
-            zztmp(outStream, it)
+            emitPhotoData(outStream, it)
             outStream.println("<p>location: ${it.location}</p>")
             outStream.println("</div>")
         }
 }
 
-private fun zztmp(
+private fun emitPhotoData(
     outStream: PrintStream,
     photo: Photo,
 ) {
