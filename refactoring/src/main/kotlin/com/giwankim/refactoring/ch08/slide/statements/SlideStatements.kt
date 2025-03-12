@@ -21,10 +21,9 @@ fun main() {
     var charge: Double
     val chargePerUnit = pricingPlan.unit
     val units = order.units
-    var discount: Double
     charge = baseCharge + units * chargePerUnit
     var discountableUnits = max(units - pricingPlan.discountThreshold, 0)
-    discount = discountableUnits * pricingPlan.discountFactor
+    var discount = discountableUnits * pricingPlan.discountFactor
     if (order.isRepeat) {
         discount += 20
     }
