@@ -12,7 +12,8 @@ fun renderPerson(
 ) {
     outStream.println("<p>${person.name}</p>")
     renderPhoto(outStream, person.photo)
-    emitPhotoData(outStream, person.photo)
+    zztmp(outStream, person.photo)
+    outStream.println("<p>location: ${person.photo.location}</p>")
 }
 
 fun listRecentPhotos(
