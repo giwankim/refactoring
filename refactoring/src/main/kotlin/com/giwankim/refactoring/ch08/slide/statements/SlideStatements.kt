@@ -16,10 +16,10 @@ class PricingPlan(
 
 fun main() {
     val pricingPlan = retrievePricingPlan()
-    val order = retrieveOrder()
     val baseCharge = pricingPlan.base
     var charge: Double
     val chargePerUnit = pricingPlan.unit
+    val order = retrieveOrder()
     val units = order.units
     charge = baseCharge + units * chargePerUnit
     var discountableUnits = max(units - pricingPlan.discountThreshold, 0)
