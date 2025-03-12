@@ -15,12 +15,13 @@ class RendererTest :
             mockkStatic("com.giwankim.refactoring.ch08.move.statements.to.callers.RendererKt")
             every { recentDateCutoff() } returns LocalDateTime.of(2025, 3, 11, 0, 0)
 
+            val cutoffDate = LocalDateTime.of(2025, 3, 11, 0, 0)
             val outputStream = ByteArrayOutputStream()
             val photos =
                 listOf(
-                    Photo(title = "Rocket", location = "SpaceX", date = LocalDateTime.of(2025, 3, 10, 0, 0), data = "🚀"),
-                    Photo(title = "Dog", location = "Park", date = LocalDateTime.of(2025, 3, 12, 0, 0), data = "🐶"),
-                    Photo(title = "Tada!", location = "Party", date = LocalDateTime.of(2025, 3, 13, 0, 0), data = "🎉"),
+                    Photo(title = "Rocket", location = "SpaceX", date = cutoffDate.minusDays(1), data = "🚀"),
+                    Photo(title = "Dog", location = "Park", date = cutoffDate.plusDays(1), data = "🐶"),
+                    Photo(title = "Tada!", location = "Party", date = cutoffDate.plusDays(2), data = "🎉"),
                 )
 
             listRecentPhotos(PrintStream(outputStream), photos)
