@@ -32,10 +32,17 @@ fun emitPhotoData(
     outStream: PrintStream,
     photo: Photo,
 ) {
+    zztmp(outStream, photo)
+    outStream.println("<p>location: ${photo.location}</p>")
+}
+
+private fun zztmp(
+    outStream: PrintStream,
+    photo: Photo,
+) {
     val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(Locale.KOREA)
     outStream.println("<p>title: ${photo.title}</p>")
     outStream.println("<p>date: ${photo.date.format(formatter)}</p>")
-    outStream.println("<p>location: ${photo.location}</p>")
 }
 
 fun renderPhoto(
