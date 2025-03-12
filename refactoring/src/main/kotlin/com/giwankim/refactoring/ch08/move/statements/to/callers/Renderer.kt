@@ -24,17 +24,10 @@ fun listRecentPhotos(
         .filter { it.date.isAfter(recentDateCutoff()) }
         .forEach {
             outStream.println("<div>")
-            emitPhotoData(outStream, it)
+            zztmp(outStream, it)
+            outStream.println("<p>location: ${it.location}</p>")
             outStream.println("</div>")
         }
-}
-
-fun emitPhotoData(
-    outStream: PrintStream,
-    photo: Photo,
-) {
-    zztmp(outStream, photo)
-    outStream.println("<p>location: ${photo.location}</p>")
 }
 
 private fun zztmp(
