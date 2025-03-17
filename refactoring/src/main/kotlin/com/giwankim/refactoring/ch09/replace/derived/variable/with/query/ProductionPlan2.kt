@@ -8,8 +8,7 @@ class ProductionPlan2(
     private val adjustments: MutableList<Adjustment> = mutableListOf()
     val production: Int
         get() {
-            check(productionAccumulator == calculateProductionAccumulator)
-            return initialProduction + productionAccumulator
+            return initialProduction + calculateProductionAccumulator
         }
     val calculateProductionAccumulator: Int
         get() = adjustments.sumOf { it.amount }
