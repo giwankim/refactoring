@@ -13,8 +13,8 @@ fun distanceTravelled(
     val secondaryTime = time - scenario.delay
     if (secondaryTime > 0) {
         val primaryVelocity = primaryAcceleration * scenario.delay
-        var acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass
-        result += primaryVelocity * secondaryTime + 0.5 * acc * secondaryTime * secondaryTime
+        val secondaryAcceleration = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass
+        result += primaryVelocity * secondaryTime + 0.5 * secondaryAcceleration * secondaryTime * secondaryTime
     }
     return result
 }
