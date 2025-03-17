@@ -7,11 +7,7 @@ class ProductionPlan2(
     private var productionAccumulator: Int = 0
     private val adjustments: MutableList<Adjustment> = mutableListOf()
     val production: Int
-        get() {
-            return initialProduction + calculateProductionAccumulator
-        }
-    val calculateProductionAccumulator: Int
-        get() = adjustments.sumOf { it.amount }
+        get() = initialProduction + adjustments.sumOf<Adjustment> { it.amount }
 
     fun applyAdjustment(adjustment: Adjustment) {
         adjustments.add(adjustment)
