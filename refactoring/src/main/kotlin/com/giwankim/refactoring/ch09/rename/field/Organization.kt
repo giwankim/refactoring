@@ -1,11 +1,11 @@
 package com.giwankim.refactoring.ch09.rename.field
 
 data class Organization(
-    var name: String,
+    var title: String,
     var country: String,
 ) {
     constructor(data: Map<String, String>) : this(
-        name = data["name"] ?: "",
+        title = data["title"] ?: data["name"] ?: "",
         country = data["country"] ?: "",
     )
 }
