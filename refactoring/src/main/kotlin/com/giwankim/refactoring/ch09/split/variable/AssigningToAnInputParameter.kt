@@ -1,15 +1,15 @@
 package com.giwankim.refactoring.ch09.split.variable
 
 fun discount(
-    originalInputValue: Int,
+    inputValue: Int,
     quantity: Int,
 ): Int {
-    var inputValue = originalInputValue
-    if (inputValue > 50) {
-        inputValue -= 2
+    var result = inputValue
+    if (result > 50) {
+        result -= 2
     }
     if (quantity > 100) {
-        inputValue -= 1
+        result -= 1
     }
-    return inputValue
+    return result
 }
