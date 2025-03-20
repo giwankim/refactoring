@@ -10,14 +10,14 @@ import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     try {
-        run(args)
+        println(run(args))
     } catch (e: Exception) {
         System.err.println(e)
         exitProcess(1)
     }
 }
 
-fun run(args: Array<String>) {
+fun run(args: Array<String>): Int {
     require(args.isNotEmpty()) { "must supply a filename" }
     val filename = args.last()
     val input: File = Paths.get(filename).toFile()
@@ -28,9 +28,9 @@ fun run(args: Array<String>) {
             .addModule(kotlinModule())
             .build()
     val orders: List<Order> = mapper.readValue(input)
-    if (args.any { it == "-r" }) {
-        println(orders.count { it.status == OrderStatus.READY })
+    return if (args.any { it == "-r" }) {
+        orders.count { it.status == OrderStatus.READY }
     } else {
-        println(orders.size)
+        orders.size
     }
 }
