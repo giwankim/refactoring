@@ -19,7 +19,8 @@ fun main(args: Array<String>) {
 
 fun run(args: Array<String>): Int {
     require(args.isNotEmpty()) { "must supply a filename" }
-    val commandLine = CommandLine()
+    val onlyCountReady = args.any { it == "-r" }
+    val commandLine = CommandLine(onlyCountReady)
     val filename = args.last()
     return countOrders(commandLine, args, filename)
 }
@@ -37,12 +38,13 @@ private fun countOrders(
             .addModule(kotlinModule())
             .build()
     val orders: List<Order> = mapper.readValue(input)
-    val onlyCountReadt = args.any { it == "-r" }
-    return if (onlyCountReadt) {
+    return if (commandLine.onlyCountReady) {
         orders.count { it.status == OrderStatus.READY }
     } else {
         orders.size
     }
 }
 
-class CommandLine
+data class CommandLine(
+    val onlyCountReady: Boolean,
+)
