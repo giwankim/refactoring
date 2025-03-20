@@ -12,6 +12,16 @@ fun priceOrder(
         (quantity - product.discountThreshold)
             .coerceAtLeast(0)
             .toBigDecimal() * product.basePrice * product.discountRate.toBigDecimal()
+    val price = applyShipping(basePrice, shippingMethod, quantity, discount)
+    return price
+}
+
+private fun applyShipping(
+    basePrice: BigDecimal,
+    shippingMethod: ShippingMethod,
+    quantity: Int,
+    discount: BigDecimal,
+): BigDecimal {
     val shippingPerCase =
         if (basePrice > shippingMethod.discountThreshold) shippingMethod.discountedFee else shippingMethod.feePerCase
     val shippingCost = quantity.toBigDecimal() * shippingPerCase
