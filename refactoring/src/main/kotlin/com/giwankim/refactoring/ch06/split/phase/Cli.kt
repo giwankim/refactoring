@@ -17,17 +17,13 @@ fun main(args: Array<String>) {
     }
 }
 
-fun run(args: Array<String>): Int {
-    val commandLine = parseCommandLine(args)
-    return countOrders(commandLine)
-}
+fun run(args: Array<String>): Int = countOrders(parseCommandLine(args))
 
 private fun parseCommandLine(args: Array<String>): CommandLine {
     require(args.isNotEmpty()) { "must supply a filename" }
     val onlyCountReady = args.any { it == "-r" }
     val filename = args.last()
-    val commandLine = CommandLine(onlyCountReady, filename)
-    return commandLine
+    return CommandLine(onlyCountReady, filename)
 }
 
 private fun countOrders(commandLine: CommandLine): Int {
