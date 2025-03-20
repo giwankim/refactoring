@@ -37,7 +37,8 @@ private fun countOrders(
             .addModule(kotlinModule())
             .build()
     val orders: List<Order> = mapper.readValue(input)
-    return if (args.any { it == "-r" }) {
+    val onlyCountReadt = args.any { it == "-r" }
+    return if (onlyCountReadt) {
         orders.count { it.status == OrderStatus.READY }
     } else {
         orders.size
