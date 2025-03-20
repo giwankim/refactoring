@@ -6,3 +6,4 @@
 - [Chapter 4 - Building Tests](docs/ch04.md)
 - [Chapter 7 - Encapsulation](docs/ch07.md)
 - [Chapter 8 - Moving Features](docs/ch08.md)
+- [Chapter 9 - Organizing Data](docs/ch09.md)
