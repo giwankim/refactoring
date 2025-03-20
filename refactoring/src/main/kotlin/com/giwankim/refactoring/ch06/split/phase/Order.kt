@@ -33,9 +33,3 @@ private fun applyShipping(
     val shippingCost = priceData.quantity.toBigDecimal() * shippingPerCase
     return priceData.basePrice - priceData.discount + shippingCost
 }
-
-data class PriceData(
-    val basePrice: BigDecimal,
-    val quantity: Int,
-    val discount: BigDecimal,
-)
