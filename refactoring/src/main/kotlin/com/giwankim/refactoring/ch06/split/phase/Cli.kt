@@ -20,6 +20,13 @@ fun main(args: Array<String>) {
 fun run(args: Array<String>): Int {
     require(args.isNotEmpty()) { "must supply a filename" }
     val filename = args.last()
+    return countOrders(args, filename)
+}
+
+private fun countOrders(
+    args: Array<String>,
+    filename: String,
+): Int {
     val input: File = Paths.get(filename).toFile()
     val mapper =
         JsonMapper
