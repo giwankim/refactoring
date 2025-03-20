@@ -18,19 +18,20 @@ fun main(args: Array<String>) {
 }
 
 fun run(args: Array<String>): Int {
-    require(args.isNotEmpty()) { "must supply a filename" }
-    val onlyCountReady = args.any { it == "-r" }
-    val commandLine = CommandLine(onlyCountReady)
-    val filename = args.last()
-    return countOrders(commandLine, args, filename)
+    val commandLine = parseCommandLine(args)
+    return countOrders(commandLine)
 }
 
-private fun countOrders(
-    commandLine: CommandLine,
-    args: Array<String>,
-    filename: String,
-): Int {
-    val input: File = Paths.get(filename).toFile()
+private fun parseCommandLine(args: Array<String>): CommandLine {
+    require(args.isNotEmpty()) { "must supply a filename" }
+    val onlyCountReady = args.any { it == "-r" }
+    val filename = args.last()
+    val commandLine = CommandLine(onlyCountReady, filename)
+    return commandLine
+}
+
+private fun countOrders(commandLine: CommandLine): Int {
+    val input: File = Paths.get(commandLine.filename).toFile()
     val mapper =
         JsonMapper
             .builder()
@@ -47,4 +48,5 @@ private fun countOrders(
 
 data class CommandLine(
     val onlyCountReady: Boolean,
+    val filename: String,
 )
