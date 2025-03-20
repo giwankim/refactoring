@@ -10,34 +10,27 @@ import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     try {
-        require(args.isNotEmpty()) { "must supply a filename" }
-        val filename = args.last()
-        val input: File = Paths.get(filename).toFile()
-        val mapper =
-            JsonMapper
-                .builder()
-                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
-                .addModule(kotlinModule())
-                .build()
-        val orders: List<Order> = mapper.readValue(input)
-        if (args.any { it == "-r" }) {
-            println(orders.count { it.status == OrderStatus.READY })
-        } else {
-            println(orders.size)
-        }
+        run(args)
     } catch (e: Exception) {
         System.err.println(e)
         exitProcess(1)
     }
 }
 
-data class Order(
-    val status: OrderStatus,
-)
-
-enum class OrderStatus {
-    READY,
-    PENDING,
-    CANCELED,
-    COMPLETED,
+fun run(args: Array<String>) {
+    require(args.isNotEmpty()) { "must supply a filename" }
+    val filename = args.last()
+    val input: File = Paths.get(filename).toFile()
+    val mapper =
+        JsonMapper
+            .builder()
+            .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true)
+            .addModule(kotlinModule())
+            .build()
+    val orders: List<Order> = mapper.readValue(input)
+    if (args.any { it == "-r" }) {
+        println(orders.count { it.status == OrderStatus.READY })
+    } else {
+        println(orders.size)
+    }
 }
