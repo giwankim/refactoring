@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
 
-class OrderTest :
+class PriceOrderTest :
     FunSpec({
         test("priceOrder") {
             val product = Product(basePrice = 10.toBigDecimal(), discountRate = 0.1, discountThreshold = 10)
