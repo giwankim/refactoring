@@ -19,11 +19,13 @@ fun main(args: Array<String>) {
 
 fun run(args: Array<String>): Int {
     require(args.isNotEmpty()) { "must supply a filename" }
+    val commandLine = CommandLine()
     val filename = args.last()
-    return countOrders(args, filename)
+    return countOrders(commandLine, args, filename)
 }
 
 private fun countOrders(
+    commandLine: CommandLine,
     args: Array<String>,
     filename: String,
 ): Int {
@@ -41,3 +43,5 @@ private fun countOrders(
         orders.size
     }
 }
+
+class CommandLine
