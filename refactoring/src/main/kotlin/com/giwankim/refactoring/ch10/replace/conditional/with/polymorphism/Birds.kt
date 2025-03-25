@@ -4,9 +4,9 @@ fun plumages(birds: List<Bird>): Map<String, Plumage> = birds.associate { it.nam
 
 fun speeds(birds: List<Bird>): Map<String, Double> = birds.associate { it.name to airSpeedVelocity(it) }
 
-fun plumage(bird: Bird): Plumage = bird.plumage
+fun plumage(bird: Bird): Plumage = createBird(bird).plumage
 
-fun airSpeedVelocity(bird: Bird): Double = bird.airSpeedVelocity
+fun airSpeedVelocity(bird: Bird): Double = createBird(bird).airSpeedVelocity
 
 fun createBird(bird: Bird): Bird =
     when (bird.type) {
