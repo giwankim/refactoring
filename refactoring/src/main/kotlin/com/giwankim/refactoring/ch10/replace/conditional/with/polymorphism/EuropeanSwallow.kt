@@ -5,4 +5,7 @@ class EuropeanSwallow(
     numberOfCoconuts: Int,
     voltage: Double,
     isNailed: Boolean,
-) : Bird(name, "EuropeanSwallow", numberOfCoconuts, voltage, isNailed)
+) : Bird(name, "EuropeanSwallow", numberOfCoconuts, voltage, isNailed) {
+    override val plumage: Plumage
+        get() = Plumage.AVERAGE
+}

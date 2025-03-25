@@ -7,17 +7,17 @@ open class Bird(
     val voltage: Double,
     val isNailed: Boolean,
 ) {
-    val plumage: Plumage
+    open val plumage: Plumage
         get() {
             return when (type) {
-                "EuropeanSwallow" -> Plumage.AVERAGE
+                "EuropeanSwallow" -> error("Should be unreachable")
                 "AfricanSwallow" -> if (numberOfCoconuts > 2) Plumage.TIRED else Plumage.AVERAGE
                 "NorwegianBlueParrot" -> if (voltage > 100) Plumage.SCORCHED else Plumage.BEAUTIFUL
                 else -> Plumage.UNKNOWN
             }
         }
 
-    val airSpeedVelocity: Double
+    open val airSpeedVelocity: Double
         get() {
             return when (type) {
                 "EuropeanSwallow" -> 35.0
