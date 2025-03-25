@@ -3,18 +3,17 @@ package com.giwankim.refactoring.ch10.replace.nested.conditional.with.guard.clau
 fun payAmount(employee: Employee): PayResult {
     var result: PayResult
     if (employee.isSeparated) {
-        result = PayResult(0.0, "SEP")
+        return PayResult(0.0, "SEP")
+    }
+    if (employee.isRetired) {
+        result = PayResult(0.0, "RET")
     } else {
-        if (employee.isRetired) {
-            result = PayResult(0.0, "RET")
-        } else {
-            // logic to compute amount
-            // lorem.ipsum(dolor.sitAmet)
-            // consectetur(adipiscing).elit()
-            // sed.do.eiusmod = tempor.incididunt.ut(labore) && dolore(magna.aliqua)
-            // ut.enim.ad(minim.veniam)
-            result = someFinalComputation()
-        }
+        // logic to compute amount
+        // lorem.ipsum(dolor.sitAmet)
+        // consectetur(adipiscing).elit()
+        // sed.do.eiusmod = tempor.incididunt.ut(labore) && dolore(magna.aliqua)
+        // ut.enim.ad(minim.veniam)
+        result = someFinalComputation()
     }
     return result
 }
