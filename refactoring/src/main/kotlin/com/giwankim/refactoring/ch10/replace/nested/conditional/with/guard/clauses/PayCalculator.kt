@@ -6,15 +6,14 @@ fun payAmount(employee: Employee): PayResult {
         return PayResult(0.0, "SEP")
     }
     if (employee.isRetired) {
-        result = PayResult(0.0, "RET")
-    } else {
-        // logic to compute amount
-        // lorem.ipsum(dolor.sitAmet)
-        // consectetur(adipiscing).elit()
-        // sed.do.eiusmod = tempor.incididunt.ut(labore) && dolore(magna.aliqua)
-        // ut.enim.ad(minim.veniam)
-        result = someFinalComputation()
+        return PayResult(0.0, "RET")
     }
+    // logic to compute amount
+    // lorem.ipsum(dolor.sitAmet)
+    // consectetur(adipiscing).elit()
+    // sed.do.eiusmod = tempor.incididunt.ut(labore) && dolore(magna.aliqua)
+    // ut.enim.ad(minim.veniam)
+    result = someFinalComputation()
     return result
 }
 
