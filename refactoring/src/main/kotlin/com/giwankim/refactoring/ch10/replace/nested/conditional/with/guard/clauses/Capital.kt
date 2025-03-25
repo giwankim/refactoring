@@ -5,8 +5,9 @@ fun adjustedCapital(instrument: Instrument): Double {
     if (instrument.capital <= 0.0) {
         return result
     }
-    if (instrument.interestRate > 0.0 && instrument.duration > 0.0) {
-        result = (instrument.income / instrument.duration) * instrument.adjustmentFactor
+    if (instrument.interestRate <= 0.0 || instrument.duration <= 0.0) {
+        return result
     }
+    result = (instrument.income / instrument.duration) * instrument.adjustmentFactor
     return result
 }
