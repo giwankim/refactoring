@@ -1,6 +1,6 @@
 package com.giwankim.refactoring.ch10.replace.conditional.with.polymorphism
 
-class Bird(
+open class Bird(
     val name: String,
     val type: String,
     val numberOfCoconuts: Int,
