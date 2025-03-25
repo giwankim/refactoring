@@ -8,14 +8,7 @@ open class Bird(
     val isNailed: Boolean,
 ) {
     open val plumage: Plumage
-        get() {
-            return when (type) {
-                "EuropeanSwallow" -> error("Should be unreachable")
-                "AfricanSwallow" -> error("Should be unreachable")
-                "NorwegianBlueParrot" -> error("Should be unreachable")
-                else -> Plumage.UNKNOWN
-            }
-        }
+        get() = Plumage.UNKNOWN
 
     open val airSpeedVelocity: Double
         get() {
