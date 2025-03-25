@@ -22,7 +22,7 @@ class Bird(
             return when (type) {
                 "EuropeanSwallow" -> 35.0
                 "AfricanSwallow" -> 40.0 - 2 * numberOfCoconuts
-                "NorwegianBlueParrot" -> if (isNailed) 0.0 else 20 + voltage / 10.0
+                "NorwegianBlueParrot" -> if (isNailed) 0.0 else 10 + voltage / 10.0
                 else -> Double.MIN_VALUE
             }
         }
