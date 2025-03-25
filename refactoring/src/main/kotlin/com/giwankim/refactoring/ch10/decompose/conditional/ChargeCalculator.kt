@@ -6,22 +6,19 @@ fun calculateCharge(
     plan: Plan,
     date: LocalDate,
     quantity: Int,
-): Double {
-    var charge: Double
-    if (summer(date, plan)) {
-        charge = summerCharge(quantity, plan)
-    } else {
-        charge = quantity * plan.regularRate + plan.regularServiceCharge
-    }
-    return charge
-}
+): Double = if (summer(date, plan)) summerCharge(quantity, plan) else regularCharge(quantity, plan)
+
+private fun summer(
+    date: LocalDate,
+    plan: Plan,
+): Boolean = !date.isBefore(plan.summerStart) && !date.isAfter(plan.summerEnd)
 
 private fun summerCharge(
     quantity: Int,
     plan: Plan,
 ): Double = quantity * plan.summerRate
 
-private fun summer(
-    date: LocalDate,
+private fun regularCharge(
+    quantity: Int,
     plan: Plan,
-): Boolean = !date.isBefore(plan.summerStart) && !date.isAfter(plan.summerEnd)
+): Double = quantity * plan.regularRate + plan.regularServiceCharge
