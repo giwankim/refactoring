@@ -5,4 +5,7 @@ class AfricanSwallow(
     numberOfCoconuts: Int,
     voltage: Double,
     isNailed: Boolean,
-) : Bird(name, "AfricanSwallow", numberOfCoconuts, voltage, isNailed)
+) : Bird(name, "AfricanSwallow", numberOfCoconuts, voltage, isNailed) {
+    override val plumage: Plumage
+        get() = if (numberOfCoconuts > 2) Plumage.TIRED else Plumage.AVERAGE
+}

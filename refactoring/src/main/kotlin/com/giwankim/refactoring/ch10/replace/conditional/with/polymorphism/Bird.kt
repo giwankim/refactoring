@@ -11,8 +11,8 @@ open class Bird(
         get() {
             return when (type) {
                 "EuropeanSwallow" -> error("Should be unreachable")
-                "AfricanSwallow" -> if (numberOfCoconuts > 2) Plumage.TIRED else Plumage.AVERAGE
-                "NorwegianBlueParrot" -> if (voltage > 100) Plumage.SCORCHED else Plumage.BEAUTIFUL
+                "AfricanSwallow" -> error("Should be unreachable")
+                "NorwegianBlueParrot" -> error("Should be unreachable")
                 else -> Plumage.UNKNOWN
             }
         }
