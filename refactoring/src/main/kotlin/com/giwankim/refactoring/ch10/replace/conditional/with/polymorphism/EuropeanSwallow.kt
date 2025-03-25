@@ -8,4 +8,7 @@ class EuropeanSwallow(
 ) : Bird(name, "EuropeanSwallow", numberOfCoconuts, voltage, isNailed) {
     override val plumage: Plumage
         get() = Plumage.AVERAGE
+
+    override val airSpeedVelocity: Double
+        get() = 35.0
 }
