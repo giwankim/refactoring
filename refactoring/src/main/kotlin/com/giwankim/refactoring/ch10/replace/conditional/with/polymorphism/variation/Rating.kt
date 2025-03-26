@@ -43,13 +43,13 @@ open class Rating(
     val voyageProfitFactor: Int
         get() {
             var result = 2
-
             if (voyage.zone == "china") {
                 result += 1
             }
             if (voyage.zone == "east-indies") {
                 result += 1
             }
+            result += historyLengthFactor
             result += voyageAndHistoryLengthFactor
             return result
         }
@@ -57,7 +57,6 @@ open class Rating(
     open val voyageAndHistoryLengthFactor: Int
         get() {
             var result = 0
-            result += historyLengthFactor
             if (voyage.length > 14) {
                 result -= 1
             }
