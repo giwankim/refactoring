@@ -54,31 +54,16 @@ open class Rating(
             return result
         }
 
-    val voyageAndHistoryLengthFactor: Int
+    open val voyageAndHistoryLengthFactor: Int
         get() {
             var result = 0
-            if (voyage.zone == "china" && hasChinaHistory) {
-                result += 3
-                if (history.size > 10) {
-                    result += 1
-                }
-                if (voyage.length > 12) {
-                    result += 1
-                }
-                if (voyage.length > 18) {
-                    result -= 1
-                }
-            } else {
-                if (history.size > 8) {
-                    result += 1
-                }
-                if (voyage.length > 14) {
-                    result -= 1
-                }
+            result += historyLengthFactor
+            if (voyage.length > 14) {
+                result -= 1
             }
             return result
         }
 
-    val hasChinaHistory: Boolean
-        get() = history.any { it.zone == "china" }
+    open val historyLengthFactor: Int
+        get() = if (history.size > 8) 1 else 0
 }
