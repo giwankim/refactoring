@@ -10,7 +10,7 @@ class ExperiencedChinaRating(
             return result.coerceAtLeast(0)
         }
 
-    override val voyageAndHistoryLengthFactor: Int
+    override val voyageLengthFactor: Int
         get() {
             var result = 0
             result += 3

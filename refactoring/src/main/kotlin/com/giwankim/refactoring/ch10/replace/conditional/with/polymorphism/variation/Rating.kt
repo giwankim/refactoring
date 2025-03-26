@@ -50,18 +50,12 @@ open class Rating(
                 result += 1
             }
             result += historyLengthFactor
-            result += voyageAndHistoryLengthFactor
+            result += voyageLengthFactor
             return result
         }
 
-    open val voyageAndHistoryLengthFactor: Int
-        get() {
-            var result = 0
-            if (voyage.length > 14) {
-                result -= 1
-            }
-            return result
-        }
+    open val voyageLengthFactor: Int
+        get() = if (voyage.length > 14) -1 else 0
 
     open val historyLengthFactor: Int
         get() = if (history.size > 8) 1 else 0
