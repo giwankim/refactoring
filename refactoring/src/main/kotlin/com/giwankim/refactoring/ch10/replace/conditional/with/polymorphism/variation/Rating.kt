@@ -30,16 +30,13 @@ open class Rating(
             return result.coerceAtLeast(0)
         }
 
-    val captainHistoryRisk: Int
+    open val captainHistoryRisk: Int
         get() {
             var result = 1
             if (history.size < 5) {
                 result += 4
             }
             result += history.count { it.profit < 0 }
-            if (voyage.zone == "china" && hasChinaHistory) {
-                result -= 2
-            }
             return result.coerceAtLeast(0)
         }
 
