@@ -40,7 +40,7 @@ open class Rating(
             return result.coerceAtLeast(0)
         }
 
-    val voyageProfitFactor: Int
+    open val voyageProfitFactor: Int
         get() {
             var result = 2
             if (voyage.zone == "china") {

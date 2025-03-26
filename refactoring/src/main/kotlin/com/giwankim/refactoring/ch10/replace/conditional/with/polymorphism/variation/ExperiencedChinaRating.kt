@@ -10,10 +10,12 @@ class ExperiencedChinaRating(
             return result.coerceAtLeast(0)
         }
 
+    override val voyageProfitFactor: Int
+        get() = super.voyageProfitFactor + 3
+
     override val voyageLengthFactor: Int
         get() {
             var result = 0
-            result += 3
             if (voyage.length > 12) {
                 result += 1
             }
