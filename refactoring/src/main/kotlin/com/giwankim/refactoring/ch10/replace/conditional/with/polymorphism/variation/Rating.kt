@@ -9,12 +9,9 @@ open class Rating(
             val vpf = voyageProfitFactor
             val vr = voyageRisk
             val chr = captainHistoryRisk
-            return if (vpf * 3 > (vr + chr * 2)) {
-                "A"
-            } else {
-                "B"
-            }
+            return if (vpf * 3 > (vr + chr * 2)) "A" else "B"
         }
+
     val voyageRisk: Int
         get() {
             var result = 1
