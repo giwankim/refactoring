@@ -1,6 +1,6 @@
 package com.giwankim.refactoring.ch10.replace.conditional.with.polymorphism.variation
 
-class Rating(
+open class Rating(
     val voyage: Voyage,
     val history: History,
 ) {
