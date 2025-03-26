@@ -14,7 +14,6 @@ class ExperiencedChinaRating(
         get() {
             var result = 0
             result += 3
-            result += historyLengthFactor
             if (voyage.length > 12) {
                 result += 1
             }
