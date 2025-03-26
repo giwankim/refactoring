@@ -3,16 +3,7 @@ package com.giwankim.refactoring.ch10.replace.conditional.with.polymorphism.vari
 fun rating(
     voyage: Voyage,
     history: History,
-): String {
-    val vpf = voyageProfitFactor(voyage, history)
-    val vr = voyageRisk(voyage)
-    val chr = captainHistoryRisk(voyage, history)
-    return if (vpf * 3 > (vr + chr * 2)) {
-        "A"
-    } else {
-        "B"
-    }
-}
+): String = Rating(voyage, history).value
 
 fun voyageRisk(voyage: Voyage): Int {
     var result = 1
