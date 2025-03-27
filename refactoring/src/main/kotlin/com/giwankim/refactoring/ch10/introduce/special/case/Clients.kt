@@ -18,7 +18,10 @@ fun client3(
     newPlan: BillingPlan,
 ) {
     val customer = site.customer
-    customer.billingPlan = if (customer.isUnknown()) BillingPlan.BASIC else newPlan
+    if (customer.isUnknown()) {
+        return
+    }
+    customer.billingPlan = newPlan
 }
 
 fun client4(site: Site): Int {
