@@ -11,17 +11,14 @@ fun checkSecurity(people: List<Person>) {
 }
 
 private fun checkForMiscreants(people: List<Person>) {
-    var found = false
     for (person in people) {
-        if (!found) {
-            if (person.name == "Don") {
-                sendAlert()
-                return
-            }
-            if (person.name == "John") {
-                sendAlert()
-                return
-            }
+        if (person.name == "Don") {
+            sendAlert()
+            return
+        }
+        if (person.name == "John") {
+            sendAlert()
+            return
         }
     }
 }
