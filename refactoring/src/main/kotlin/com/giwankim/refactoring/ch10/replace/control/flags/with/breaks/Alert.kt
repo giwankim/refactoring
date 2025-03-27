@@ -11,14 +11,10 @@ fun checkSecurity(people: List<Person>) {
 }
 
 private fun checkForMiscreants(people: List<Person>) {
-    for (person in people) {
-        if (person.name == "Don") {
-            sendAlert()
-            return
-        }
-        if (person.name == "John") {
-            sendAlert()
-            return
-        }
+    if (listOf("Don", "John").isDisjointWith(people)) {
+        return
     }
+    sendAlert()
 }
+
+private fun List<String>.isDisjointWith(people: List<Person>): Boolean = intersect(people.map { it.name }).isEmpty()
