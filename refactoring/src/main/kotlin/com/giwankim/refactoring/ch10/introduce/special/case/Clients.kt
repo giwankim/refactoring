@@ -3,7 +3,7 @@ package com.giwankim.refactoring.ch10.introduce.special.case
 fun client1(site: Site): String {
     val customer = site.customer
     // ... lots of intervening code ...
-    val customerName = if (customer.isUnknown()) "occupant" else customer.name
+    val customerName = customer.name
     return customerName
 }
 

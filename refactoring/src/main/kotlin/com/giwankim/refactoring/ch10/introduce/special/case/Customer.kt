@@ -10,7 +10,7 @@ open class Customer(
 
 class UnknownCustomer :
     Customer(
-        "unknown",
+        "occupant",
         BillingPlan.BASIC,
         PaymentHistory(0),
     ) {
