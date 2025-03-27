@@ -21,6 +21,5 @@ fun client3(
 
 fun client4(site: Site): Int {
     val customer = site.customer
-    val weeksDelinquent = if (customer.isUnknown()) 0 else customer.paymentHistory.weeksDelinquentInLastYear
-    return weeksDelinquent
+    return customer.paymentHistory.weeksDelinquentInLastYear
 }

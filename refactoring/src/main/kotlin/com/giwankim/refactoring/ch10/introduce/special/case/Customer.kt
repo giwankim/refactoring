@@ -17,7 +17,7 @@ class UnknownCustomer :
     Customer(
         "occupant",
         BillingPlan.BASIC,
-        PaymentHistory(0),
+        NullPaymentHistory(),
     ) {
     override var billingPlan: BillingPlan
         get() = BillingPlan.BASIC
@@ -27,13 +27,3 @@ class UnknownCustomer :
 
     override fun isUnknown(): Boolean = true
 }
-
-enum class BillingPlan {
-    BASIC,
-    SPECIAL,
-    DELUXE,
-}
-
-class PaymentHistory(
-    val weeksDelinquentInLastYear: Int,
-)
