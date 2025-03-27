@@ -20,7 +20,7 @@ private fun checkForMiscreants(people: List<Person>) {
             }
             if (person.name == "John") {
                 sendAlert()
-                found = true
+                return
             }
         }
     }
