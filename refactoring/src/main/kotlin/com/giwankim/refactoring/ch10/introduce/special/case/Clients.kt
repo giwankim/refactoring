@@ -8,8 +8,7 @@ fun client1(site: Site): String {
 
 fun client2(site: Site): BillingPlan {
     val customer = site.customer
-    val plan = if (customer.isUnknown()) BillingPlan.BASIC else customer.billingPlan
-    return plan
+    return customer.billingPlan
 }
 
 fun client3(
@@ -17,9 +16,6 @@ fun client3(
     newPlan: BillingPlan,
 ) {
     val customer = site.customer
-    if (customer.isUnknown()) {
-        return
-    }
     customer.billingPlan = newPlan
 }
 
