@@ -1,6 +1,6 @@
 package com.giwankim.refactoring.ch10.introduce.special.case
 
-data class Customer(
+class Customer(
     val name: String,
     var billingPlan: BillingPlan,
     val paymentHistory: PaymentHistory,

@@ -16,10 +16,9 @@ fun client2(site: Site): BillingPlan {
 fun client3(
     site: Site,
     newPlan: BillingPlan,
-): Customer? {
+) {
     val customer = site.customer
     customer?.billingPlan = newPlan
-    return customer
 }
 
 fun client4(site: Site): Int {

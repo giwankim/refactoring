@@ -17,7 +17,8 @@ class ClientsTest :
             }
 
             test("client3 returns null for customer when customer doesn't exist") {
-                client3(site, BillingPlan.DELUXE) shouldBe null
+                client3(site, BillingPlan.DELUXE)
+                site.customer shouldBe null
             }
 
             test("client4 returns 0 as default weeks delinquent last year when customer doesn't exist") {
@@ -38,7 +39,8 @@ class ClientsTest :
             }
 
             test("client3 updates billing plan when customer exists") {
-                client3(site, BillingPlan.SPECIAL) shouldBe customer.copy(billingPlan = BillingPlan.SPECIAL)
+                client3(site, BillingPlan.SPECIAL)
+                customer.billingPlan shouldBe BillingPlan.SPECIAL
             }
 
             test("client4 returns weeks delinquent when customer exists") {
