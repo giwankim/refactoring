@@ -21,7 +21,7 @@ class ClientsTest :
                 site.customer.billingPlan shouldBe BillingPlan.BASIC
             }
 
-            test("client4 returns 0 as default weeks delinquent last year when customer doesn't exist") {
+            test("client4 returns 0 as default weeks delinquent last year when customer is unknown") {
                 client4(site) shouldBe 0
             }
         }
