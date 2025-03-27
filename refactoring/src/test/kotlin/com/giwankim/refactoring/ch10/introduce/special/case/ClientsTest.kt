@@ -8,17 +8,17 @@ class ClientsTest :
         context("customer is null for site") {
             val site = Site()
 
-            test("client1 returns 'occupant' when customer doesn't exist") {
+            test("client1 returns 'occupant' when customer is unknown") {
                 client1(site) shouldBe "occupant"
             }
 
-            test("client2 returns BASIC billing plan when customer doesn't exist") {
+            test("client2 returns BASIC billing plan when customer is unknown") {
                 client2(site) shouldBe BillingPlan.BASIC
             }
 
-            test("client3 returns null for customer when customer doesn't exist") {
+            test("client3 does not modify the billing plan when customer is unknown") {
                 client3(site, BillingPlan.DELUXE)
-                site.customer shouldBe null
+                site.customer.billingPlan shouldBe BillingPlan.BASIC
             }
 
             test("client4 returns 0 as default weeks delinquent last year when customer doesn't exist") {
