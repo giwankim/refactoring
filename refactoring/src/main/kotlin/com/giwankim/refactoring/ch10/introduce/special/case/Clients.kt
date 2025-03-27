@@ -23,3 +23,9 @@ fun client4(site: Site): Int {
     val customer = site.customer
     return customer.paymentHistory.weeksDelinquentInLastYear
 }
+
+fun client5(site: Site): String {
+    val customer = site.customer
+    val name = if (customer.isUnknown()) "unknown occupant" else customer.name
+    return name
+}
