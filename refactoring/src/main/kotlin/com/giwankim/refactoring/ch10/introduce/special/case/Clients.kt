@@ -3,8 +3,7 @@ package com.giwankim.refactoring.ch10.introduce.special.case
 fun client1(site: Site): String {
     val customer = site.customer
     // ... lots of intervening code ...
-    val customerName = customer.name
-    return customerName
+    return customer.name
 }
 
 fun client2(site: Site): BillingPlan {
