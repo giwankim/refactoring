@@ -5,6 +5,7 @@ fun sendAlert() {
 }
 
 fun checkSecurity(people: List<Person>) {
+    // some unimportant code
     var found = false
     for (person in people) {
         if (!found) {
@@ -18,4 +19,5 @@ fun checkSecurity(people: List<Person>) {
             }
         }
     }
+    // more code
 }
