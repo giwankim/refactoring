@@ -7,11 +7,9 @@ fun baseCharge(usage: Double): Money {
     if (usage < 0.0) {
         return usd(0.0)
     }
-    val amount = bottomBand(usage) * 0.03 + withinBand(usage, 100.0, 200.0) * 0.05 + topBand(usage) * 0.07
+    val amount = withinBand(usage, 0.0, 100.0) * 0.03 + withinBand(usage, 100.0, 200.0) * 0.05 + topBand(usage) * 0.07
     return usd(amount)
 }
-
-private fun bottomBand(usage: Double): Double = min(usage, 100.0)
 
 private fun withinBand(
     usage: Double,
