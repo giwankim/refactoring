@@ -1,10 +1,12 @@
 [versions]
 kotlin = "2.1.0"
 ktlint = "12.1.2"
+moneta = "1.4.5"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-plugin-serialization = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
 ktlint-gradle-plugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlint" }
+moneta = { module = "org.javamoney:moneta", version.ref = "moneta" }
 
 [plugins]
