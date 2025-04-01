@@ -10,6 +10,10 @@ kotlin {
     jvmToolchain(21)
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
