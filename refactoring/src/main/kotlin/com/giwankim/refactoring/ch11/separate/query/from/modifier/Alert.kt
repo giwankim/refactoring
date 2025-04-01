@@ -1,17 +1,16 @@
 package com.giwankim.refactoring.ch11.separate.query.from.modifier
 
-fun alertForMiscreant(people: List<Person>): Person? {
+fun alertForMiscreant(people: List<Person>) {
     for (p in people) {
         if (p.name == "Don") {
             setOffAlarms()
-            return p
+            return
         }
         if (p.name == "John") {
             setOffAlarms()
-            return p
+            return
         }
     }
-    return null
 }
 
 fun findMiscreant(people: List<Person>): Person? {
