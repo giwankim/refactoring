@@ -12,39 +12,57 @@ class AlertTest :
             mockkStatic("com.giwankim.refactoring.ch11.separate.query.from.modifier.AlertKt")
         }
 
-        test("should find Don and set off alarms") {
+        context("Don and John are included") {
             val people = listOf(Person("Normal"), Person("Don"), Person("John"))
 
-            val result = alertForMiscreant(people)
+            test("should find Don") {
+                val miscreant = findMiscreant(people)
+                miscreant?.name shouldBe "Don"
+            }
 
-            result?.name shouldBe "Don"
-            verify(exactly = 1) { setOffAlarms() }
+            test("should set off alarms for John") {
+                alertForMiscreant(people)
+                verify(exactly = 1) { setOffAlarms() }
+            }
         }
 
-        test("should find John and set off alarms") {
+        context("only John is included") {
             val people = listOf(Person("Normal"), Person("John"))
 
-            val result = alertForMiscreant(people)
+            test("should find John and set off alarms") {
+                val miscreant = findMiscreant(people)
+                miscreant?.name shouldBe "John"
+            }
 
-            result?.name shouldBe "John"
-            verify(exactly = 1) { setOffAlarms() }
+            test("should set off alarms for John") {
+                alertForMiscreant(people)
+                verify(exactly = 1) { setOffAlarms() }
+            }
         }
 
-        test("should return null when no miscreant found") {
+        context("no miscreants") {
             val people = listOf(Person("Normal1"), Person("Normal2"))
 
-            val result = alertForMiscreant(people)
+            test("should return null when no miscreant found") {
+                findMiscreant(people) shouldBe null
+            }
 
-            result shouldBe null
-            verify(exactly = 0) { setOffAlarms() }
+            test("should not set off alarms") {
+                alertForMiscreant(people)
+                verify(exactly = 0) { setOffAlarms() }
+            }
         }
 
-        test("should return null for empty list") {
+        context("empty people list") {
             val people: List<Person> = emptyList()
 
-            val result = alertForMiscreant(people)
+            test("should return null for empty list") {
+                findMiscreant(people) shouldBe null
+            }
 
-            result shouldBe null
-            verify(exactly = 0) { setOffAlarms() }
+            test("should not set off alarms") {
+                alertForMiscreant(people)
+                verify(exactly = 0) { setOffAlarms() }
+            }
         }
     })
