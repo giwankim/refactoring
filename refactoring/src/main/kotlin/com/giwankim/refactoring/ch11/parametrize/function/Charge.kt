@@ -18,8 +18,8 @@ private fun withinBand(
     bottom: Double,
     top: Double,
 ): Double =
-    if (usage > 100.0) {
-        min(usage, 200.0) - 100.0
+    if (usage > bottom) {
+        min(usage, top) - bottom
     } else {
         0.0
     }
