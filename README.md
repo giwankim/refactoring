@@ -8,3 +8,4 @@
 - [8 - Moving Features](docs/ch08.md)
 - [9 - Organizing Data](docs/ch09.md)
 - [10 - Simplifying Conditional Logic](docs/ch10.md)
+- [11 - Refactoring APIs](docs/ch11.md)
