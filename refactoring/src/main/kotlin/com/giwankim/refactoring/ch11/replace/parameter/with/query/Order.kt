@@ -6,15 +6,12 @@ class Order(
 ) {
     fun finalPrice(): Double {
         val basePrice = quantity * itemPrice
-        return discountPrice(basePrice, discountLevel())
+        return discountPrice(basePrice)
     }
 
     private fun discountLevel(): Int = if (quantity > 100) 2 else 1
 
-    fun discountPrice(
-        basePrice: Double,
-        discountLevel: Int,
-    ): Double =
+    private fun discountPrice(basePrice: Double): Double =
         when (discountLevel()) {
             1 -> basePrice * 0.95
             2 -> basePrice * 0.9
