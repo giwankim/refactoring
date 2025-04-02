@@ -15,9 +15,9 @@ class Order(
         basePrice: Double,
         discountLevel: Int,
     ): Double =
-        when (discountLevel) {
+        when (discountLevel()) {
             1 -> basePrice * 0.95
             2 -> basePrice * 0.9
-            else -> throw IllegalArgumentException("Invalid discount level: $discountLevel")
+            else -> throw IllegalArgumentException("Invalid discount level: ${discountLevel()}")
         }
 }
