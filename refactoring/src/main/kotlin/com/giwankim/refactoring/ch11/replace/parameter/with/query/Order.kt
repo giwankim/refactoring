@@ -9,12 +9,13 @@ class Order(
         return discountPrice(basePrice)
     }
 
-    private fun discountLevel(): Int = if (quantity > 100) 2 else 1
+    private val discountLevel: Int
+        get() = if (quantity > 100) 2 else 1
 
     private fun discountPrice(basePrice: Double): Double =
-        when (discountLevel()) {
+        when (discountLevel) {
             1 -> basePrice * 0.95
             2 -> basePrice * 0.9
-            else -> throw IllegalArgumentException("Invalid discount level: ${discountLevel()}")
+            else -> throw IllegalArgumentException("Invalid discount level: $discountLevel")
         }
 }
