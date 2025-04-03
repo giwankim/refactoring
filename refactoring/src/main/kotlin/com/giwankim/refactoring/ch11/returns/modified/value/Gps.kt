@@ -3,7 +3,6 @@ package com.giwankim.refactoring.ch11.returns.modified.value
 fun main() {
     val points = listOf(Point(100), Point(200), Point(150))
 
-    var totalAscent = 0
     var totalTime = 0
     var totalDistance = 0
 
@@ -24,7 +23,7 @@ fun main() {
         // Assuming each point has a distance property
     }
 
-    totalAscent = calculateAscent()
+    val totalAscent = calculateAscent()
     calculateTime()
     calculateDistance()
     val pace = totalTime / 60.0 / totalDistance
