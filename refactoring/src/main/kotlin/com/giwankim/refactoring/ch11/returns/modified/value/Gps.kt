@@ -8,11 +8,12 @@ fun main() {
     var totalDistance = 0
 
     fun calculateAscent(): Int {
+        var result = 0
         for (i in 1 until points.size) {
             val verticalChange = points[i].elevation - points[i - 1].elevation
-            totalAscent += verticalChange.coerceAtLeast(0)
+            result += verticalChange.coerceAtLeast(0)
         }
-        return totalAscent
+        return result
     }
 
     fun calculateTime() {
