@@ -8,5 +8,8 @@ class ChargeCalculator(
     val baseCharge: Double
         get() = customer.baseRate * usage
     val charge: Double
-        get() = baseCharge + provider.connectionCharge
+        get() {
+            val baseCharge = this.baseCharge
+            return baseCharge + provider.connectionCharge
+        }
 }
