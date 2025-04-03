@@ -6,11 +6,12 @@ fun score(
     candidate: Candidate,
     medicalExam: MedicalExam,
     scoringGuide: ScoringGuide,
-): Int = Scorer().execute(candidate, medicalExam, scoringGuide)
+): Int = Scorer(candidate).execute(medicalExam, scoringGuide)
 
-class Scorer {
+data class Scorer(
+    val candidate: Candidate,
+) {
     fun execute(
-        candidate: Candidate,
         medicalExam: MedicalExam,
         scoringGuide: ScoringGuide,
     ): Int {
