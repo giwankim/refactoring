@@ -7,12 +7,15 @@ class HeatingPlan(
     val targetTemperature: Int
         get() {
             val selectedTemperature = Thermostat.selectedTemperature
-            return if (selectedTemperature > max) {
-                max
-            } else if (selectedTemperature < min) {
-                min
-            } else {
-                selectedTemperature
-            }
+            return xxNEWtargetTemperature(selectedTemperature)
+        }
+
+    private fun xxNEWtargetTemperature(selectedTemperature: Int): Int =
+        if (selectedTemperature > max) {
+            max
+        } else if (selectedTemperature < min) {
+            min
+        } else {
+            selectedTemperature
         }
 }
