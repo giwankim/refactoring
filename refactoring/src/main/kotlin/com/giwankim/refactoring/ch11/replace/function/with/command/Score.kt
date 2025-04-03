@@ -13,16 +13,21 @@ data class Scorer(
     val medicalExam: MedicalExam,
     val scoringGuide: ScoringGuide,
 ) {
+    private var result: Int = 0
+    private var healthLevel: Int = 0
+    private var highMedicalRiskFlag: Boolean = false
+    private var certificationGrade: String = "regular"
+
     fun execute(): Int {
-        var result = 0
-        var healthLevel = 0
-        var highMedicalRiskFlag = false
+        result = 0
+        healthLevel = 0
+        highMedicalRiskFlag = false
 
         if (medicalExam.isSmoker) {
             healthLevel += 10
             highMedicalRiskFlag = true
         }
-        var certificationGrade = "regular"
+        certificationGrade = "regular"
         if (scoringGuide.stateWithLowCertification(candidate.originState)) {
             certificationGrade = "low"
             result -= 5
