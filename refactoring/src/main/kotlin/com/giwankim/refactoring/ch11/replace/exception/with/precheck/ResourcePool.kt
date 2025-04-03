@@ -6,12 +6,16 @@ class ResourcePool {
 
     fun get(): Resource {
         var result: Resource
-        try {
-            result = available.removeFirst()
-            allocated.add(result)
-        } catch (e: NoSuchElementException) {
+        if (available.isEmpty()) {
             result = Resource()
             allocated.add(result)
+        } else {
+            try {
+                result = available.removeFirst()
+                allocated.add(result)
+            } catch (e: NoSuchElementException) {
+                throw error("unreachable")
+            }
         }
         return result
     }
