@@ -6,8 +6,7 @@ class HeatingPlan(
 ) {
     val targetTemperature: Int
         get() {
-            val selectedTemperature = Thermostat.selectedTemperature
-            return xxNEWtargetTemperature(selectedTemperature)
+            return xxNEWtargetTemperature(Thermostat.selectedTemperature)
         }
 
     private fun xxNEWtargetTemperature(selectedTemperature: Int): Int =
