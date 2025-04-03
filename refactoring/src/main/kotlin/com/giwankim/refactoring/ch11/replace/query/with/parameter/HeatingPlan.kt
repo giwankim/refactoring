@@ -1,6 +1,6 @@
 package com.giwankim.refactoring.ch11.replace.query.with.parameter
 
-class HeatingPlan(
+data class HeatingPlan(
     val max: Int,
     val min: Int,
 ) {
