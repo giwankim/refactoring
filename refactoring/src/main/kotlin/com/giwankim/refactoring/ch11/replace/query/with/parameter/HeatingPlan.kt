@@ -9,7 +9,7 @@ class HeatingPlan(
             return xxNEWtargetTemperature(Thermostat.selectedTemperature)
         }
 
-    private fun xxNEWtargetTemperature(selectedTemperature: Int): Int =
+    fun xxNEWtargetTemperature(selectedTemperature: Int): Int =
         if (selectedTemperature > max) {
             max
         } else if (selectedTemperature < min) {

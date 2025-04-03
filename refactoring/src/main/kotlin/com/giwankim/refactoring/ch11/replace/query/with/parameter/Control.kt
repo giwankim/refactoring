@@ -13,9 +13,9 @@ fun setOff() {
 }
 
 fun control(plan: HeatingPlan) {
-    if (plan.targetTemperature > Thermostat.currentTemperature) {
+    if (plan.xxNEWtargetTemperature(Thermostat.selectedTemperature) > Thermostat.currentTemperature) {
         setToHeat()
-    } else if (plan.targetTemperature < Thermostat.currentTemperature) {
+    } else if (plan.xxNEWtargetTemperature(Thermostat.selectedTemperature) < Thermostat.currentTemperature) {
         setToCool()
     } else {
         setOff()
