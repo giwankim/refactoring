@@ -31,15 +31,12 @@ fun main() {
     val errorList = mutableListOf<ErrorData>()
     val orderData = Order("KR")
 
-    var status: Int? = null
     try {
-        status = calculateShippingCosts(orderData)
+        val cost = calculateShippingCosts(orderData)
+        println("Shipping cost: $cost")
     } catch (ope: OrderProcessingError) {
         errorList.add(ErrorData(order = orderData, errorCode = ope.errorCode))
     } catch (e: Exception) {
         throw e
-    }
-    if (status == null) {
-        errorList.add(ErrorData(orderData, null))
     }
 }

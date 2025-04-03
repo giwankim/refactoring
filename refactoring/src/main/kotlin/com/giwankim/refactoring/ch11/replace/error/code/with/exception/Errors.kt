@@ -2,7 +2,7 @@ package com.giwankim.refactoring.ch11.replace.error.code.with.exception
 
 data class ErrorData(
     val order: Order,
-    val errorCode: Int?,
+    val errorCode: Int,
 )
 
 class OrderProcessingError(
