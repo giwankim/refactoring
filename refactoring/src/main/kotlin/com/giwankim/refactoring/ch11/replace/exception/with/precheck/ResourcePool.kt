@@ -10,12 +10,8 @@ class ResourcePool {
             result = Resource()
             allocated.add(result)
         } else {
-            try {
-                result = available.removeFirst()
-                allocated.add(result)
-            } catch (e: NoSuchElementException) {
-                throw error("unreachable")
-            }
+            result = available.removeFirst()
+            allocated.add(result)
         }
         return result
     }
