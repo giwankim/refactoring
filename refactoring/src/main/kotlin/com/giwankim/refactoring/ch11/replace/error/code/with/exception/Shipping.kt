@@ -22,8 +22,23 @@ fun calculateShippingCosts(order: Order): Double? {
     // irrelevant code
     val shippingRules = localShippingRules(order.country)
     if (shippingRules == null) {
-        return shippingRules
+        return null
     }
     // more irrevelant code
     return 0.0
+}
+
+data class OrderError(
+    val order: Order,
+    val errorCode: Double?,
+)
+
+fun main() {
+    val errorList = mutableListOf<OrderError>()
+    val orderData = Order("KR")
+
+    val status = calculateShippingCosts(orderData)
+    if (status == null) {
+        errorList.add(OrderError(orderData, null))
+    }
 }
