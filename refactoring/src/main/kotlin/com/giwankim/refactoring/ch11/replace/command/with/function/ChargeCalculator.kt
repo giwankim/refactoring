@@ -1,10 +1,6 @@
 package com.giwankim.refactoring.ch11.replace.command.with.function
 
-class ChargeCalculator(
-    val customer: Customer,
-    val usage: Double,
-    val provider: Provider,
-) {
+class ChargeCalculator {
     fun charge(
         customer: Customer,
         usage: Double,
