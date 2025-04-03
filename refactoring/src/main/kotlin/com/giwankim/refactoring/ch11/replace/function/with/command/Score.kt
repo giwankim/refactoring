@@ -23,10 +23,7 @@ data class Scorer(
         healthLevel = 0
         highMedicalRiskFlag = false
 
-        if (medicalExam.isSmoker) {
-            healthLevel += 10
-            highMedicalRiskFlag = true
-        }
+        scoreSmoking()
         certificationGrade = "regular"
         if (scoringGuide.stateWithLowCertification(candidate.originState)) {
             certificationGrade = "low"
@@ -35,5 +32,12 @@ data class Scorer(
         // lots more code like this
         result -= max(healthLevel - 5, 0)
         return result
+    }
+
+    private fun scoreSmoking() {
+        if (medicalExam.isSmoker) {
+            healthLevel += 10
+            highMedicalRiskFlag = true
+        }
     }
 }
