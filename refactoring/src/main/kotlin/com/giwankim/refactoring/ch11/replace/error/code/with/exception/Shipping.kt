@@ -4,28 +4,27 @@ val countryData =
     CountryData(
         shippingRules =
             mapOf(
-                "US" to ShippingRules(),
-                "CA" to ShippingRules(),
-                "JP" to ShippingRules(),
+                "US" to ShippingRules(1),
+                "CA" to ShippingRules(2),
+                "JP" to ShippingRules(3),
             ),
     )
 
-class ShippingRules
+class ShippingRules(
+    val cost: Int,
+)
 
 data class CountryData(
     val shippingRules: Map<String, ShippingRules>,
 )
 
-fun localShippingRules(country: String): ShippingRules? = countryData.shippingRules[country]
+fun localShippingRules(country: String): ShippingRules = countryData.shippingRules[country] ?: throw OrderProcessingError(-23)
 
 fun calculateShippingCosts(order: Order): Int? {
     // irrelevant code
     val shippingRules = localShippingRules(order.country)
-    if (shippingRules == null) {
-        return null
-    }
     // more irrelevant code
-    return 0
+    return shippingRules.cost
 }
 
 fun main() {
