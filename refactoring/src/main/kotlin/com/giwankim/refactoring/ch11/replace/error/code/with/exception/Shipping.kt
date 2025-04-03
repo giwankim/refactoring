@@ -18,32 +18,29 @@ data class CountryData(
 
 fun localShippingRules(country: String): ShippingRules? = countryData.shippingRules[country]
 
-fun calculateShippingCosts(order: Order): Double? {
+fun calculateShippingCosts(order: Order): Int? {
     // irrelevant code
     val shippingRules = localShippingRules(order.country)
     if (shippingRules == null) {
         return null
     }
-    // more irrevelant code
-    return 0.0
+    // more irrelevant code
+    return 0
 }
 
-data class OrderError(
-    val order: Order,
-    val errorCode: Double?,
-)
-
 fun main() {
-    val errorList = mutableListOf<OrderError>()
+    val errorList = mutableListOf<ErrorData>()
     val orderData = Order("KR")
 
-    var status: Double?
+    var status: Int? = null
     try {
         status = calculateShippingCosts(orderData)
+    } catch (ope: OrderProcessingError) {
+        errorList.add(ErrorData(order = orderData, errorCode = ope.errorCode))
     } catch (e: Exception) {
         throw e
     }
     if (status == null) {
-        errorList.add(OrderError(orderData, null))
+        errorList.add(ErrorData(orderData, null))
     }
 }
