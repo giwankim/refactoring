@@ -6,15 +6,14 @@ fun score(
     candidate: Candidate,
     medicalExam: MedicalExam,
     scoringGuide: ScoringGuide,
-): Int = Scorer(candidate).execute(medicalExam, scoringGuide)
+): Int = Scorer(candidate, medicalExam, scoringGuide).execute()
 
 data class Scorer(
     val candidate: Candidate,
+    val medicalExam: MedicalExam,
+    val scoringGuide: ScoringGuide,
 ) {
-    fun execute(
-        medicalExam: MedicalExam,
-        scoringGuide: ScoringGuide,
-    ): Int {
+    fun execute(): Int {
         var result = 0
         var healthLevel = 0
         var highMedicalRiskFlag = false
