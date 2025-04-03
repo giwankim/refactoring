@@ -37,7 +37,12 @@ fun main() {
     val errorList = mutableListOf<OrderError>()
     val orderData = Order("KR")
 
-    val status = calculateShippingCosts(orderData)
+    var status: Double?
+    try {
+        status = calculateShippingCosts(orderData)
+    } catch (e: Exception) {
+        throw e
+    }
     if (status == null) {
         errorList.add(OrderError(orderData, null))
     }
