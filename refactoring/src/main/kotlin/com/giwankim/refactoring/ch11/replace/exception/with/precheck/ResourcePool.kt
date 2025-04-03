@@ -8,11 +8,10 @@ class ResourcePool {
         var result: Resource
         if (available.isEmpty()) {
             result = Resource()
-            allocated.add(result)
         } else {
             result = available.removeFirst()
-            allocated.add(result)
         }
+        allocated.add(result)
         return result
     }
 }
