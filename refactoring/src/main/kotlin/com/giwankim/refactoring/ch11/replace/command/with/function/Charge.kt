@@ -4,4 +4,7 @@ fun charge(
     customer: Customer,
     usage: Double,
     provider: Provider,
-): Double = ChargeCalculator().charge(customer, usage, provider)
+): Double {
+    val baseCharge = customer.baseRate * usage
+    return baseCharge + provider.connectionCharge
+}
