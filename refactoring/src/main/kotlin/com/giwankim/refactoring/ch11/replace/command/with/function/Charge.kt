@@ -4,4 +4,4 @@ fun charge(
     customer: Customer,
     usage: Double,
     provider: Provider,
-): Double = ChargeCalculator(customer, usage, provider).charge
+): Double = ChargeCalculator(customer, usage, provider).charge(customer, usage, provider)
