@@ -5,10 +5,12 @@ fun client(document: Document) {
 }
 
 fun client2(document: Document) {
-    val leadEngineer = createEmployee(document.leadEngineer, 'E')
+    val leadEngineer = createEngineer(document.leadEngineer)
 }
 
 fun createEmployee(
     name: String,
     typeCode: Char,
 ): Employee = Employee(name, typeCode)
+
+fun createEngineer(name: String): Employee = Employee(name, 'E')
