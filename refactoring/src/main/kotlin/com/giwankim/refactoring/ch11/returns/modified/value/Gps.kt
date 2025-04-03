@@ -7,11 +7,12 @@ fun main() {
     var totalTime = 0
     var totalDistance = 0
 
-    fun calculateAscent() {
+    fun calculateAscent(): Int {
         for (i in 1 until points.size) {
             val verticalChange = points[i].elevation - points[i - 1].elevation
             totalAscent += verticalChange.coerceAtLeast(0)
         }
+        return totalAscent
     }
 
     fun calculateTime() {
@@ -22,7 +23,7 @@ fun main() {
         // Assuming each point has a distance property
     }
 
-    calculateAscent()
+    totalAscent = calculateAscent()
     calculateTime()
     calculateDistance()
     val pace = totalTime / 60.0 / totalDistance
